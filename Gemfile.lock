@@ -3,6 +3,7 @@ PATH
   specs:
     skelecogs (0.1.0)
       rails (>= 7.0.2.3)
+      view_component (>= 2.0.0, < 3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -151,6 +152,9 @@ GEM
     timeout (0.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    view_component (2.52.0)
+      activesupport (>= 5.0.0, < 8.0)
+      method_source (~> 1.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)

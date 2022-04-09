@@ -19,4 +19,9 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 7.0.2.3"
+  spec.add_runtime_dependency     "view_component", [">= 2.0.0", "< 3.0"]
+
+  spec.add_development_dependency "capybara", "~> 3"
+  spec.add_development_dependency "cuprite", "= 0.13"
+  spec.add_development_dependency "minitest", "~> 5.0"
 end
