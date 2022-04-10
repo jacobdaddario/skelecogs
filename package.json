@@ -12,6 +12,6 @@
     "@hotwired/stimulus": "^3.0.1"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/javascripts/skelecogs --public-path=assets"
   }
 }

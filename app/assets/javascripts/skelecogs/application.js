@@ -1,12 +1,17 @@
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
   };
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
   };
 
   // node_modules/@rails/actioncable/src/adapters.js
@@ -5660,9 +5665,33 @@
   Controller.targets = [];
   Controller.values = {};
 
-  // app/javascript/application.js
+  // app/javascript/controllers/application.js
   var application = Application.start();
   application.debug = false;
   window.Stimulus = application;
+
+  // app/javascript/controllers/dropdown_controller.js
+  var dropdown_controller_default = class extends Controller {
+    openValueChanged() {
+      this.openValue ? this.toggleOpen() : this.toggleClosed();
+    }
+    toggle(event) {
+      event && event.preventDefault();
+      this.openValue = !this.openValue;
+    }
+    toggleOpen() {
+      this.itemsContainerTarget.style.display = "flex";
+    }
+    toggleClosed() {
+      this.itemsContainerTarget.style.display = "none";
+    }
+  };
+  __publicField(dropdown_controller_default, "targets", ["button", "itemsContainer"]);
+  __publicField(dropdown_controller_default, "values", {
+    open: { type: Boolean, default: false }
+  });
+
+  // app/javascript/controllers/index.js
+  application.register("dropdown", dropdown_controller_default);
 })();
 //# sourceMappingURL=assets/application.js.map

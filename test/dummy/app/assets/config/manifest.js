@@ -2,3 +2,4 @@
 //= link_directory ../stylesheets .css
 //= link skelecogs_manifest.js
 //= link_tree ../builds
+//= link skelecogs/application.js
