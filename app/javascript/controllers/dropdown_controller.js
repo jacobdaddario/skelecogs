@@ -2,12 +2,13 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = [ "button", "itemsContainer" ]
+  static classes = [ "reveal" ]
   static values = {
     open: { type: Boolean, default: false }
   }
 
   openValueChanged() {
-    this.openValue ? this.toggleOpen() : this.toggleClosed()
+    this.toggleReveal()
   }
 
   toggle(event) {
@@ -15,11 +16,9 @@ export default class extends Controller {
     this.openValue = !this.openValue
   }
 
-  toggleOpen() {
-    this.itemsContainerTarget.style.display = "flex"
-  }
-
-  toggleClosed() {
-    this.itemsContainerTarget.style.display = "none"
+  toggleReveal() {
+    this.revealClasses.forEach(klass => {
+      this.itemsContainerTarget.classList.toggle(klass)
+    });
   }
 }
