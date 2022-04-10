@@ -5,6 +5,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
 gem "sqlite3"
+# Use Puma as the app server
+gem "puma", "~> 5.6.4"
 
 gem "sprockets-rails"
 

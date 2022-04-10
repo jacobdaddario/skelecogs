@@ -1,5 +1,7 @@
 module Skelecogs
   class Engine < ::Rails::Engine
-    isolate_namespace Skelecogs
+    require "turbo-rails"
+    require "stimulus-rails"
+    require "view_component/engine"
   end
 end
