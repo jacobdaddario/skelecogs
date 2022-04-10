@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class DropdownComponentTest < ApplicationSystemTestCase
+class DropdownSystemTest < ApplicationSystemTestCase
   test "can expand dropdown" do
     with_preview(:default)
 
