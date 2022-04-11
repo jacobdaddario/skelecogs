@@ -1,4 +1,8 @@
-<%= render Skelecogs::DropdownComponent.new(class:"relative", reveal_with: "hidden") do |c| %>
+<h1 id="alternate-target" class="text-2xl">
+  Add groceries
+</h1>
+
+<%= render Skelecogs::DropdownComponent.new(class:"relative mt-8", reveal_with: "hidden") do |c| %>
   <% c.button(class: "flex items-center py-1.5 px-3 rounded-md bg-red-600 text-white text-lg hover:bg-red-500") do %>
     Groceries
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

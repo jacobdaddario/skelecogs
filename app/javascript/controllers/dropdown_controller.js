@@ -21,4 +21,10 @@ export default class extends Controller {
       this.itemsContainerTarget.classList.toggle(klass)
     });
   }
+
+  outsideClickHandler(event) {
+    if (event.target != this.element && !this.element.contains(event.target)) {
+      this.openValue = false
+    }
+  }
 }

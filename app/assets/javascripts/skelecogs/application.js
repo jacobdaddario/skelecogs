@@ -5684,6 +5684,11 @@
         this.itemsContainerTarget.classList.toggle(klass);
       });
     }
+    outsideClickHandler(event) {
+      if (event.target != this.element && !this.element.contains(event.target)) {
+        this.openValue = false;
+      }
+    }
   };
   __publicField(dropdown_controller_default, "targets", ["button", "itemsContainer"]);
   __publicField(dropdown_controller_default, "classes", ["reveal"]);
