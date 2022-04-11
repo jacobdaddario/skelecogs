@@ -5673,15 +5673,20 @@
   // app/javascript/controllers/dropdown_controller.js
   var dropdown_controller_default = class extends Controller {
     openValueChanged() {
-      this.toggleReveal();
+      this.openValue ? this.toggleClosed() : this.toggleOpen();
     }
     toggle(event) {
       event && event.preventDefault();
       this.openValue = !this.openValue;
     }
-    toggleReveal() {
+    toggleOpen() {
       this.revealClasses.forEach((klass) => {
-        this.itemsContainerTarget.classList.toggle(klass);
+        this.itemsContainerTarget.classList.add(klass);
+      });
+    }
+    toggleClosed() {
+      this.revealClasses.forEach((klass) => {
+        this.itemsContainerTarget.classList.remove(klass);
       });
     }
     outsideClickHandler(event) {

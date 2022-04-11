@@ -31,7 +31,6 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
   test "menu does not open when prompted with keys when the button is not focused" do
     with_preview(:default)
-
     element = find("#alternate-target")
 
     assert_no_text "Apples"

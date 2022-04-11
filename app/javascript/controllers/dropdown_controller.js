@@ -8,7 +8,7 @@ export default class extends Controller {
   }
 
   openValueChanged() {
-    this.toggleReveal()
+    this.openValue ? this.toggleClosed() : this.toggleOpen()
   }
 
   toggle(event) {
@@ -16,9 +16,15 @@ export default class extends Controller {
     this.openValue = !this.openValue
   }
 
-  toggleReveal() {
+  toggleOpen() {
     this.revealClasses.forEach(klass => {
-      this.itemsContainerTarget.classList.toggle(klass)
+      this.itemsContainerTarget.classList.add(klass)
+    });
+  }
+
+  toggleClosed() {
+    this.revealClasses.forEach(klass => {
+      this.itemsContainerTarget.classList.remove(klass)
     });
   }
 
