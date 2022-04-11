@@ -27,4 +27,10 @@ export default class extends Controller {
       this.openValue = false
     }
   }
+
+  escapeHandler(event) {
+    if (event.keyCode == 27) {
+      this.openValue = false
+    }
+  }
 }

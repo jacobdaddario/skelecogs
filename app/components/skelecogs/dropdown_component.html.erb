@@ -1,4 +1,4 @@
-<div class="<%= @classes %>" data-controller="dropdown" data-action="click@window->dropdown#outsideClickHandler" data-dropdown-reveal-class="<%= @reveal_classes %>">
+<div class="<%= @classes %>" data-controller="dropdown" data-action="click@window->dropdown#outsideClickHandler keydown@window->dropdown#escapeHandler" data-dropdown-reveal-class="<%= @reveal_classes %>">
   <%= button %>
   <%= items_container %>
 </div>

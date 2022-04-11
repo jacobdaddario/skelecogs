@@ -5689,6 +5689,11 @@
         this.openValue = false;
       }
     }
+    escapeHandler(event) {
+      if (event.keyCode == 27) {
+        this.openValue = false;
+      }
+    }
   };
   __publicField(dropdown_controller_default, "targets", ["button", "itemsContainer"]);
   __publicField(dropdown_controller_default, "classes", ["reveal"]);
