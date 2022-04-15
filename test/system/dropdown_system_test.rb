@@ -1,44 +1,15 @@
 require "application_system_test_case"
 
 class DropdownSystemTest < ApplicationSystemTestCase
-  test "can expand dropdown" do
-    with_preview(:default)
+  class SafeguardsTest < DropdownSystemTest
+    # Can't check this because of current view component code
+    # test "should not render children without parent dropdown"
 
-    assert_no_text "Apples"
-    click_on "Groceries"
-    assert_text "Apples"
-  end
+    test "should render a dropdown" do
+      with_preview(:default)
 
-  test "clicking out of the dropdown closes it" do
-    with_preview(:default)
-
-    click_on "Groceries"
-    assert_text "Apples"
-
-    find("#alternate-target").click
-    assert_no_text "Apples"
-  end
-
-  test "escape regardless of focus closes the menu" do
-    with_preview(:default)
-
-    click_on "Groceries"
-    assert_text "Apples"
-
-    find("#alternate-target").send_keys(:escape)
-    assert_no_text "Apples"
-  end
-
-  test "menu does not open when prompted with keys when the button is not focused" do
-    with_preview(:default)
-    element = find("#alternate-target")
-
-    assert_no_text "Apples"
-    element.send_keys(:enter)
-    assert_no_text "Apples"
-
-    assert_no_text "Apples"
-    element.send_keys(:space)
-    assert_no_text "Apples"
+      assert_selector "div[role='menu']"
+      assert_selector "button[role='button']"
+    end
   end
 end
