@@ -12,4 +12,8 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_selector "button[role='button']"
     end
   end
+
+  class MouseInteractionsTest < DropdownSystemTest
+
+  end
 end
