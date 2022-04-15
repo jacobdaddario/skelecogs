@@ -1,5 +1,5 @@
-  <div class="<%= @classes %>" data-dropdown-target= "itemsContainer">
-    <% items.each do |item| %>
-      <%= item %>
-    <% end %>
-  </div>
+<%= content_tag tag_type, class: @classes, data: {"dropdown-target": "itemsContainer"} do %>
+  <% items.each do |item| %>
+    <%= item %>
+  <% end %>
+<% end %>

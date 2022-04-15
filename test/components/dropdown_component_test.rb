@@ -29,7 +29,16 @@ class DropdownComponentTest < ViewComponent::TestCase
     end
 
     test "should be possible to swap a menu item with a button for example" do
+      render_inline Skelecogs::DropdownComponent.new do |c|
+        c.button
+        c.items_container do |container|
+          container.item as: :button
+          container.item as: :button
+          container.item as: :button
+        end
+      end
 
+      assert_selector "button[role='menuitem']", count: 3
     end
   end
 end

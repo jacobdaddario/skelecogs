@@ -6,5 +6,11 @@ module Skelecogs
     def initialization_hook(opts)
       @reveal_classes = opts[:reveal_with]
     end
+
+    private
+
+    def default_tag
+      :div
+    end
   end
 end

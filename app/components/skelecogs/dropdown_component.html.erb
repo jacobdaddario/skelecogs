@@ -1,4 +1,4 @@
-<div class="<%= @classes %>" role="menu" data-controller="dropdown" data-action="click@window->dropdown#outsideClickHandler keydown@window->dropdown#escapeHandler keydown->dropdown#keyHandler" data-dropdown-reveal-class="<%= @reveal_classes %>">
+<%= content_tag tag_type, class: @classes, role: "menu", data: {controller: "dropdown", action:"click@window->dropdown#outsideClickHandler keydown@window->dropdown#escapeHandler keydown->dropdown#keyHandler", "dropdown-reveal-class": @reveal_classes} do %>
   <%= button %>
   <%= items_container %>
-</div>
+<% end %>
