@@ -1,8 +1,11 @@
 module Skelecogs
   class ApplicationComponent < ViewComponent::Base
+    attr_reader :classes, :disabled
+
     def initialize(**opts)
       @classes = opts[:class]
       @as = opts[:as]
+      @disabled = opts[:disabled]
 
       initialization_hook(opts)
     end

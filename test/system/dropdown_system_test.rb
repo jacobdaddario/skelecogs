@@ -41,12 +41,18 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
       assert_menu visible: false
       assert_menu_items visible: false
-      # Unfortunately, I'm unsure if this is possible
-      # assert_menu_linked_with_button
     end
 
     test "should not be possible to open a menu on click when the button is disabled" do
+      with_preview(:disabled)
 
+      assert_menu visible: false
+      assert_menu_button
+
+      get_menu_button.click
+
+      assert_menu visible: false
+      assert_menu_items visible: false
     end
   end
 end

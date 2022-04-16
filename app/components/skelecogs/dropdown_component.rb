@@ -1,5 +1,7 @@
 module Skelecogs
   class DropdownComponent < ApplicationComponent
+    attr_reader :reveal_classes
+
     renders_one :button, Skelecogs::DropdownComponent::ButtonComponent
     renders_one :items_container, Skelecogs::DropdownComponent::ItemsComponent
 
