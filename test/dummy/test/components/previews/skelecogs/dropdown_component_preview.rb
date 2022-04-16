@@ -5,5 +5,8 @@ module Skelecogs
 
     def disabled
     end
+
+    def multiple
+    end
   end
 end

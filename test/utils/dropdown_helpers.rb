@@ -16,12 +16,20 @@ module DropdownHelpers
     assert_selector "div[role='menu'][aria-labelledby='skelecogs-menu-button-1']"
   end
 
+  def get_menus
+    all "div[role='menu']"
+  end
+
   def get_menu_button
     find "button[role='button']"
   end
 
+  def get_menu_buttons
+    all "button[role='button']"
+  end
+
   def get_items
-    find "items[role='button']"
+    all "items[role='button']"
   end
 
   def click_outside_menu

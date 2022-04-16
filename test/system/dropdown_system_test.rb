@@ -99,5 +99,18 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
       assert_active_element button
     end
+
+    test "should be able to click from menu button to menu button, cycling between the different menus" do
+      with_preview(:multiple)
+      button1, button2 = *get_menu_buttons
+
+      button1.click
+      assert_text "Red"
+      assert_no_text "SM"
+
+      button2.click
+      assert_text "SM"
+      assert_no_text "Red"
+    end
   end
 end

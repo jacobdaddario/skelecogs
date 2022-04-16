@@ -5698,7 +5698,7 @@
       this.indexValue = -1;
     }
     outsideClickHandler(event) {
-      if (event.target != this.element && !this.element.contains(event.target)) {
+      if (event.target != this.element && !this.element.contains(event.target) && this.openValue == true) {
         this.openValue = false;
         this.buttonTarget.focus();
       }
