@@ -1,6 +1,9 @@
 require "application_system_test_case"
+require "utils/dropdown_helpers"
 
 class DropdownSystemTest < ApplicationSystemTestCase
+  include DropdownHelpers
+
   class SafeguardsTest < DropdownSystemTest
     # Can't check this because of current view component code
     # test "should not render children without parent dropdown"
@@ -8,12 +11,42 @@ class DropdownSystemTest < ApplicationSystemTestCase
     test "should render a dropdown" do
       with_preview(:default)
 
-      assert_selector "div[role='menu']"
-      assert_selector "button[role='button']"
+      assert_menu visible: false
+      assert_menu_button
     end
   end
 
   class MouseInteractionsTest < DropdownSystemTest
+    test "should be possible to open a menu on click" do
+      with_preview(:default)
 
+      assert_menu visible: false
+      assert_menu_button
+
+      get_menu_button.click
+
+      assert_menu
+      assert_menu_items count: 4
+      # Unfortunately, I'm unsure if this is possible
+      # assert_menu_linked_with_button
+    end
+
+    test "should not be possible to open a menu on right-click" do
+      with_preview(:default)
+
+      assert_menu visible: false
+      assert_menu_button
+
+      get_menu_button.right_click
+
+      assert_menu visible: false
+      assert_menu_items visible: false
+      # Unfortunately, I'm unsure if this is possible
+      # assert_menu_linked_with_button
+    end
+
+    test "should not be possible to open a menu on click when the button is disabled" do
+
+    end
   end
 end
