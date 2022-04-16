@@ -23,4 +23,8 @@ module DropdownHelpers
   def get_items
     find "items[role='button']"
   end
+
+  def click_outside_menu
+    find "#alternate-target"
+  end
 end

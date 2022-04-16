@@ -64,5 +64,13 @@ class DropdownSystemTest < ApplicationSystemTestCase
       button.click
       assert_menu visible: false
     end
+
+    test "should do nothing when clicking outside of the menu" do
+      with_preview(:default)
+
+      assert_menu visible: false
+      click_outside_menu
+      assert_menu visible: false
+    end
   end
 end
