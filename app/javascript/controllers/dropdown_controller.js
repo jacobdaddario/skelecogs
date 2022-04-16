@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { isFocusableElement, focusableElements,  } from "../utils/focusable_helpers"
 import keyboard from "../utils/keyboard"
+
 export default class extends Controller {
   static targets = [ "button", "itemsContainer", "item" ]
   static classes = [ "reveal" ]
@@ -50,7 +51,7 @@ export default class extends Controller {
     }
   }
 
-  outsideKeyHander(event) {
+  outsideKeyHandler(event) {
     if (event.keyCode == keyboard.escape) {
       this.openValue = false
     }

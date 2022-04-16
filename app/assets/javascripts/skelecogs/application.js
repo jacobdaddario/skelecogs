@@ -5737,7 +5737,7 @@
         }
       }
     }
-    outsideKeyHander(event) {
+    outsideKeyHandler(event) {
       if (event.keyCode == keyboard_default.escape) {
         this.openValue = false;
       }
