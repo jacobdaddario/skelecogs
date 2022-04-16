@@ -1,9 +1,10 @@
 require "application_system_test_case"
 require "utils/dropdown_helpers"
 require "utils/accessability_helpers"
+require "utils/interactions"
 
 class DropdownSystemTest < ApplicationSystemTestCase
-  include DropdownHelpers, AccessabilityHelpers
+  include DropdownHelpers, AccessabilityHelpers, Interactions
 
   class SafeguardsTest < DropdownSystemTest
     # Can't check this because of current view component code
@@ -24,9 +25,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button = get_menu_button
-        button.trigger("focus")
-        button.send_keys(:enter)
+        button_safe_send_keys(get_menu_button, :enter)
 
         assert_menu
         assert_menu_items count: 4
@@ -37,9 +36,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button = get_menu_button
-        button.trigger("focus")
-        button.send_keys(:enter)
+        button_safe_send_keys(get_menu_button, :enter)
 
         assert_menu visible: false
         assert_menu_items visible: false
@@ -53,12 +50,9 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button = get_menu_button
-        button.trigger("focus")
-        button.send_keys(:enter)
+        button_safe_send_keys(get_menu_button, :enter)
 
-        item = get_items[1]
-        assert_active_element(item)
+        assert_active_element(get_items[0])
       end
     end
   end
