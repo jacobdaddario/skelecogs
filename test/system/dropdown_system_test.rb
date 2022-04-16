@@ -150,5 +150,16 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_menu visible: false
       assert_equal page.driver.browser.current_url.split("#")[1], item_text
     end
+
+    # Need to investigate more into how they get disabled to work on anchor tags to
+    # figure out what's going on with this.
+    # test "clicking a disabled menu does not close the menu"
+
+    # test "should not be possible to focus a menu item which is disabled"
+
+    # test "should  not be possilbe to activate a disabled item"
+
+    # Unable to do this until able to figure out the ID problem
+    # test "should be possible to focus an element, making it active"
   end
 end
