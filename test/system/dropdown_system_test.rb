@@ -54,5 +54,15 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_menu visible: false
       assert_menu_items visible: false
     end
+
+    test "should be possible to close a menu on click" do
+      with_preview(:default)
+      button = get_menu_button
+      button.click
+      assert_menu
+
+      button.click
+      assert_menu visible: false
+    end
   end
 end
