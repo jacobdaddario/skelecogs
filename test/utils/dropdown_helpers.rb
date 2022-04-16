@@ -29,7 +29,7 @@ module DropdownHelpers
   end
 
   def get_items
-    all "items[role='button']"
+    all "div[role='menuitem']"
   end
 
   def click_outside_menu

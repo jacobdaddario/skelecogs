@@ -12,8 +12,7 @@
     <%= c.items_container(class: "z-50 absolute flex flex-col items-stretch border bg-white border-gray-300 transition-all duration-100 ease-in-out shadow rounded-lg py-2 mt-1.5 px-3 w-48") do |container| %>
       <% %w[Red Orange Green Blue].each do |color| %>
         <%= container.item class: "w-full flex items-center" do %>
-          <%= check_box_tag color, 1, false, class: "focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300 rounded" %>
-          <%= label_tag color, color, class: "text-gray-900 text-lg ml-4" %>
+          <%= link_to color, "##{color}", class: "inline-block h-full w-full bg-white px-3 py-1.5 my-1 text-gray-900 rounded-md hover:bg-indigo-600 hover:text-white focus:ring focus:outline-none focus:ring-indigo-400" %>
         <% end %>
       <% end %>
     <% end %>
@@ -29,8 +28,7 @@
     <%= c.items_container(class: "z-50 absolute flex flex-col items-stretch border bg-white border-gray-300 transition-all duration-100 ease-in-out shadow rounded-lg py-2 mt-1.5 px-3 w-48") do |container| %>
       <% %w[SM MD LG XL].each do |size| %>
         <%= container.item class: "w-full flex items-center" do %>
-          <%= check_box_tag size, 1, false, class: "focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300 rounded" %>
-          <%= label_tag size, size, class: "text-gray-900 text-lg ml-4" %>
+          <%= link_to size, "##{size}", class: "inline-block h-full w-full bg-white px-3 py-1.5 my-1 text-gray-900 rounded-md hover:bg-indigo-600 hover:text-white focus:ring focus:outline-none focus:ring-indigo-400" %>
         <% end %>
       <% end %>
     <% end %>

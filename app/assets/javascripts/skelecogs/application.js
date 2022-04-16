@@ -5755,6 +5755,9 @@
           break;
       }
     }
+    afterSelection() {
+      this.openValue = false;
+    }
   };
   __publicField(dropdown_controller_default, "targets", ["button", "itemsContainer", "item"]);
   __publicField(dropdown_controller_default, "classes", ["reveal"]);

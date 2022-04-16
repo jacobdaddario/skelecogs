@@ -128,5 +128,27 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
     # Unable to test this until I've figured out how to do the IDs...
     # test "should be able to hover an item and make it active"
+
+    # test "should not change active element when mousing over an already active element"
+
+    # test "should not mark disabled items as active"
+
+    # test "should be possible to mouse leave an item and make it inactive"
+
+    # test "nothing should happen when mouse leaving a disabled element"
+
+    test "clicking a menu items should close the menu" do
+      with_preview(:default)
+
+      get_menu_button.click
+      assert_menu
+
+      item = get_items[0]
+      item_text = item.text
+      item.click
+
+      assert_menu visible: false
+      assert_equal page.driver.browser.current_url.split("#")[1], item_text
+    end
   end
 end

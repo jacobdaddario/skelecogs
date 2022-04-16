@@ -88,4 +88,8 @@ export default class extends Controller {
         break
     }
   }
+
+  afterSelection() {
+    this.openValue = false
+  }
 }
