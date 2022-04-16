@@ -17,6 +17,36 @@ class DropdownSystemTest < ApplicationSystemTestCase
     end
   end
 
+  class KeyboardInteractionsTest < DropdownSystemTest
+    class EnterKeyTest < DropdownSystemTest
+      test "should be possible to open a menu with the enter button" do
+        with_preview(:default)
+        assert_menu_button
+        assert_menu visible: false
+
+        button = get_menu_button
+        button.trigger("focus")
+        button.send_keys(:enter)
+
+        assert_menu
+        assert_menu_items count: 4
+      end
+
+      test "should not be possible to open a menu button with enter when the button is disabled" do
+        with_preview(:disabled)
+        assert_menu_button
+        assert_menu visible: false
+
+        button = get_menu_button
+        button.trigger("focus")
+        button.send_keys(:enter)
+
+        assert_menu visible: false
+        assert_menu_items visible: false
+      end
+    end
+  end
+
   class MouseInteractionsTest < DropdownSystemTest
     test "should be possible to open a menu on click" do
       with_preview(:default)
