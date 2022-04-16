@@ -86,5 +86,18 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
       assert_active_element button
     end
+
+    test "should close menu if the menu button is clicked again" do
+      with_preview(:default)
+      button = get_menu_button
+
+      button.click
+      assert_menu
+
+      button.click
+      assert_menu visible: false
+
+      assert_active_element button
+    end
   end
 end
