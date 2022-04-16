@@ -25,6 +25,6 @@ module DropdownHelpers
   end
 
   def click_outside_menu
-    find "#alternate-target"
+    find("#alternate-target").click
   end
 end

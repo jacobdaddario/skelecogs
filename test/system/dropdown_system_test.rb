@@ -1,8 +1,9 @@
 require "application_system_test_case"
 require "utils/dropdown_helpers"
+require "utils/accessability_helpers"
 
 class DropdownSystemTest < ApplicationSystemTestCase
-  include DropdownHelpers
+  include DropdownHelpers, AccessabilityHelpers
 
   class SafeguardsTest < DropdownSystemTest
     # Can't check this because of current view component code
@@ -71,6 +72,19 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_menu visible: false
       click_outside_menu
       assert_menu visible: false
+    end
+
+    test "should close the menu when clicking outside of the menu" do
+      with_preview(:default)
+      button = get_menu_button
+
+      button.click
+      assert_menu
+
+      click_outside_menu
+      assert_menu visible: false
+
+      assert_active_element button
     end
   end
 end

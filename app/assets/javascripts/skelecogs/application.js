@@ -5700,6 +5700,7 @@
     outsideClickHandler(event) {
       if (event.target != this.element && !this.element.contains(event.target)) {
         this.openValue = false;
+        this.buttonTarget.focus();
       }
     }
     escapeHandler(event) {
