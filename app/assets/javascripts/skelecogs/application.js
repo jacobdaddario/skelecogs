@@ -5682,6 +5682,15 @@
     "select:not([disabled])",
     "textarea:not([disabled])"
   ];
+  function isFocusableElement(element) {
+    let next = element;
+    while (next !== null) {
+      if (next.matches(focusableElements.join(", ")))
+        return true;
+      next = next.parentElement;
+    }
+    return false;
+  }
 
   // app/javascript/controllers/dropdown_controller.js
   var dropdown_controller_default = class extends Controller {
@@ -5713,7 +5722,8 @@
     outsideClickHandler(event) {
       if (event.target != this.element && !this.element.contains(event.target) && this.openValue == true) {
         this.openValue = false;
-        if (!event.target.matches(focusableElements.join(", "))) {
+        var focusable = isFocusableElement(event.target);
+        if (!focusable) {
           this.buttonTarget.focus();
         }
       }

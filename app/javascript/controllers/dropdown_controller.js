@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { focusableElements } from "../utils/focusable_helpers"
+import { isFocusableElement, focusableElements,  } from "../utils/focusable_helpers"
 
 export default class extends Controller {
   static targets = [ "button", "itemsContainer", "item" ]
@@ -42,7 +42,9 @@ export default class extends Controller {
   outsideClickHandler(event) {
     if (event.target != this.element && !this.element.contains(event.target) && this.openValue == true) {
       this.openValue = false
-      if (!event.target.matches(focusableElements.join(", "))) {
+
+      var focusable = isFocusableElement(event.target)
+      if (!focusable) {
         this.buttonTarget.focus()
       }
     }
