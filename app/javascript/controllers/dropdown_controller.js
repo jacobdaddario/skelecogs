@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { focusableElements } from "../utils/focusable_helpers"
 
 export default class extends Controller {
   static targets = [ "button", "itemsContainer", "item" ]
@@ -14,7 +15,7 @@ export default class extends Controller {
 
   indexValueChanged() {
     if (this.indexValue >= 0) {
-      this.itemTargets[this.indexValue].querySelector('a[href]', 'button:not([disabled])').focus()
+      this.itemTargets[this.indexValue].querySelector(focusableElements.join(", ")).focus()
     } else {
       this.itemsContainerTarget.focus()
     }
@@ -41,7 +42,9 @@ export default class extends Controller {
   outsideClickHandler(event) {
     if (event.target != this.element && !this.element.contains(event.target) && this.openValue == true) {
       this.openValue = false
-      this.buttonTarget.focus()
+      if (!event.target.matches(focusableElements.join(", "))) {
+        this.buttonTarget.focus()
+      }
     }
   }
 

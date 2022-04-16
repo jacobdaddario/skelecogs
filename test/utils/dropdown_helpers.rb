@@ -21,7 +21,7 @@ module DropdownHelpers
   end
 
   def get_menu_button
-    find "button[role='button']"
+    find "button[role='button']", match: :first
   end
 
   def get_menu_buttons

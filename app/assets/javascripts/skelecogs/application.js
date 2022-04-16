@@ -5670,6 +5670,19 @@
   application.debug = false;
   window.Stimulus = application;
 
+  // app/javascript/utils/focusable_helpers.js
+  var focusableElements = [
+    "[contentEditable=true]",
+    "[tabindex]",
+    "a[href]",
+    "area[href]",
+    "button:not([disabled])",
+    "iframe",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])"
+  ];
+
   // app/javascript/controllers/dropdown_controller.js
   var dropdown_controller_default = class extends Controller {
     openValueChanged() {
@@ -5677,7 +5690,7 @@
     }
     indexValueChanged() {
       if (this.indexValue >= 0) {
-        this.itemTargets[this.indexValue].querySelector("a[href]", "button:not([disabled])").focus();
+        this.itemTargets[this.indexValue].querySelector(focusableElements.join(", ")).focus();
       } else {
         this.itemsContainerTarget.focus();
       }
@@ -5700,7 +5713,9 @@
     outsideClickHandler(event) {
       if (event.target != this.element && !this.element.contains(event.target) && this.openValue == true) {
         this.openValue = false;
-        this.buttonTarget.focus();
+        if (!event.target.matches(focusableElements.join(", "))) {
+          this.buttonTarget.focus();
+        }
       }
     }
     escapeHandler(event) {

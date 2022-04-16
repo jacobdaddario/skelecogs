@@ -1,8 +1,8 @@
 <h1 id="alternate-target" class="text-2xl">
   Browse clothes
 </h1>
-<div class="flex">
-  <%= render Skelecogs::DropdownComponent.new(class:"relative mt-8", reveal_with: "hidden") do |c| %>
+<div class="flex items-center mt-8">
+  <%= render Skelecogs::DropdownComponent.new(class:"relative", reveal_with: "hidden") do |c| %>
     <%= c.button(class: "flex items-center py-1.5 px-3 rounded-md bg-white text-indigo-600 shadow border border-gray-200 text-lg hover:bg-gray-50 focus:outline-none focus:ring focus:border-indigo-400 focus:ring-indigo-300") do %>
       Colors
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -19,7 +19,7 @@
     <% end %>
   <% end %>
 
-  <%= render Skelecogs::DropdownComponent.new(class:"relative mt-8 ml-8", reveal_with: "hidden") do |c| %>
+  <%= render Skelecogs::DropdownComponent.new(class:"relative ml-8", reveal_with: "hidden") do |c| %>
     <%= c.button(class: "flex items-center py-1.5 px-3 rounded-md bg-white text-indigo-600 shadow border border-gray-200 text-lg hover:bg-gray-50 focus:outline-none focus:ring focus:border-indigo-400 focus:ring-indigo-300") do %>
       Sizes
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -35,4 +35,7 @@
       <% end %>
     <% end %>
   <% end %>
+  <button class="py-1.5 px-3 ml-8 w-24 rounded-md text-white bg-indigo-600 text-lg hover:bg-indigo-500 focus:outline-none focus:ring focus:ring-indigo-300">
+    Filter
+  </button>
 </div>

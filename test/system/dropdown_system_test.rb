@@ -112,5 +112,18 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_text "SM"
       assert_no_text "Red"
     end
+
+    test "should be possible to click from an open menu to another focusable element, closing the menu and focusing the correct element" do
+      with_preview(:multiple)
+
+      get_menu_button.click
+      assert_menu
+
+      filter_button = find_button "Filter"
+      filter_button.click
+      assert_menu visible: false
+
+      assert_active_element(filter_button)
+    end
   end
 end
