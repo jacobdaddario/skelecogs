@@ -5692,10 +5692,19 @@
     return false;
   }
 
+  // app/javascript/utils/keyboard.js
+  var keyboard_default = {
+    enter: 13,
+    escape: 27,
+    space: 32,
+    upArrow: 38,
+    downArrow: 40
+  };
+
   // app/javascript/controllers/dropdown_controller.js
   var dropdown_controller_default = class extends Controller {
     openValueChanged() {
-      this.openValue ? this.toggleClosed() : this.toggleOpen();
+      this.openValue ? this.toggleOpen() : this.toggleClosed();
     }
     indexValueChanged() {
       if (this.indexValue >= 0) {
@@ -5710,12 +5719,12 @@
     }
     toggleOpen() {
       this.revealClasses.forEach((klass) => {
-        this.itemsContainerTarget.classList.add(klass);
+        this.itemsContainerTarget.classList.remove(klass);
       });
     }
     toggleClosed() {
       this.revealClasses.forEach((klass) => {
-        this.itemsContainerTarget.classList.remove(klass);
+        this.itemsContainerTarget.classList.add(klass);
       });
       this.indexValue = -1;
     }
@@ -5728,35 +5737,32 @@
         }
       }
     }
-    escapeHandler(event) {
-      if (event.keyCode == 27) {
+    outsideKeyHander(event) {
+      if (event.keyCode == keyboard_default.escape) {
         this.openValue = false;
       }
     }
     keyHandler(event) {
-      if (this.openValue == true) {
-        this.navKeyHandler(event);
-      } else {
-        this.revealKeyHandler(event);
-      }
-    }
-    navKeyHandler(event) {
       var maxIndex = this.itemTargets.length - 1;
       switch (event.keyCode) {
-        case 13:
+        case keyboard_default.enter:
+          event.preventDefault();
+          document.activeElement.click();
+          if (document.activeElement == this.buttonTarget) {
+            this.indexValue = 0;
+          }
+          break;
+        case keyboard_default.space:
           document.activeElement.click();
           break;
-        case 32:
-          document.activeElement.click();
-          break;
-        case 38:
+        case keyboard_default.upArrow:
           if (this.indexValue > 0) {
             this.indexValue -= 1;
           } else {
             this.indexValue = maxIndex;
           }
           break;
-        case 40:
+        case keyboard_default.downArrow:
           if (this.indexValue < maxIndex) {
             this.indexValue += 1;
           } else {

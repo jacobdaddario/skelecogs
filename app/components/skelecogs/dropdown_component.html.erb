@@ -1,4 +1,4 @@
-<%= content_tag tag_type, class: classes, data: {controller: "dropdown", action:"click@window->dropdown#outsideClickHandler keydown@window->dropdown#escapeHandler keydown->dropdown#keyHandler", "dropdown-reveal-class": reveal_classes} do %>
+<%= content_tag tag_type, class: classes, id: id, data: {controller: "dropdown", action:"click@window->dropdown#outsideClickHandler keydown@window->dropdown#outsideKeyHandler keydown->dropdown#keyHandler", "dropdown-reveal-class": reveal_classes} do %>
   <%= button %>
   <%= items_container %>
 <% end %>

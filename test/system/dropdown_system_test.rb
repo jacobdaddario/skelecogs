@@ -44,6 +44,22 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu visible: false
         assert_menu_items visible: false
       end
+
+      # Can't do this until figure out id problem
+      # test "should have no active menu items when there are no menu items"
+
+      test "should focus the first menu item when opening with enter" do
+        with_preview(:default)
+        assert_menu_button
+        assert_menu visible: false
+
+        button = get_menu_button
+        button.trigger("focus")
+        button.send_keys(:enter)
+
+        item = get_items[1]
+        assert_active_element(item)
+      end
     end
   end
 

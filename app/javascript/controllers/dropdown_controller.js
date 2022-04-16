@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { isFocusableElement, focusableElements,  } from "../utils/focusable_helpers"
-
+import keyboard from "../utils/keyboard"
 export default class extends Controller {
   static targets = [ "button", "itemsContainer", "item" ]
   static classes = [ "reveal" ]
@@ -10,7 +10,7 @@ export default class extends Controller {
   }
 
   openValueChanged() {
-    this.openValue ? this.toggleClosed() : this.toggleOpen()
+    this.openValue ? this.toggleOpen() : this.toggleClosed()
   }
 
   indexValueChanged() {
@@ -28,13 +28,13 @@ export default class extends Controller {
 
   toggleOpen() {
     this.revealClasses.forEach(klass => {
-      this.itemsContainerTarget.classList.add(klass)
+      this.itemsContainerTarget.classList.remove(klass)
     });
   }
 
   toggleClosed() {
     this.revealClasses.forEach(klass => {
-      this.itemsContainerTarget.classList.remove(klass)
+      this.itemsContainerTarget.classList.add(klass)
     });
     this.indexValue = -1
   }
@@ -50,38 +50,35 @@ export default class extends Controller {
     }
   }
 
-  escapeHandler(event) {
-    if (event.keyCode == 27) {
+  outsideKeyHander(event) {
+    if (event.keyCode == keyboard.escape) {
       this.openValue = false
     }
   }
 
   keyHandler(event) {
-    if (this.openValue == true) {
-      this.navKeyHandler(event)
-    } else {
-      this.revealKeyHandler(event)
-    }
-  }
-
-  navKeyHandler(event) {
     var maxIndex = this.itemTargets.length - 1
 
     switch(event.keyCode) {
-      case 13:
+      case keyboard.enter:
+        event.preventDefault()
+        document.activeElement.click()
+
+        if (document.activeElement == this.buttonTarget) {
+          this.indexValue = 0
+        }
+        break
+      case keyboard.space:
         document.activeElement.click()
         break
-      case 32:
-        document.activeElement.click()
-        break
-      case 38:
+      case keyboard.upArrow:
         if (this.indexValue > 0) {
           this.indexValue -= 1
         } else {
           this.indexValue = maxIndex
         }
         break
-      case 40:
+      case keyboard.downArrow:
         if (this.indexValue < maxIndex) {
           this.indexValue += 1
         } else {
