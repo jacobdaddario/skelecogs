@@ -125,5 +125,8 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
       assert_active_element(filter_button)
     end
+
+    # Unable to test this until I've figured out how to do the IDs...
+    # test "should be able to hover an item and make it active"
   end
 end
