@@ -8,5 +8,8 @@ module Skelecogs
 
     def multiple
     end
+
+    def button
+    end
   end
 end

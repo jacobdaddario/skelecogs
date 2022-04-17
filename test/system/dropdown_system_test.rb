@@ -192,7 +192,8 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_menu_linked_with_item(items[1])
 
       items[1].hover
-      assert_menu_linked_with_item(items[1]) end
+      assert_menu_linked_with_item(items[1])
+    end
 
     test "should not mark disabled items as active" do
       with_preview(:default)
@@ -258,13 +259,36 @@ class DropdownSystemTest < ApplicationSystemTestCase
     end
 
     test "should not be possible to focus a menu item which is disabled" do
+      with_preview(:default)
 
+      get_menu_button.click
+      assert_menu
+
+      items = get_items
+      items[4].execute_script("this.focus()")
+
+      assert_no_active_menu_items
     end
 
-    test "should  not be possible to activate a disabled item" do
+    test "should not be possible to activate a disabled item" do
+      with_preview(:button)
 
+      get_menu_button.click
+      assert_menu
+
+      items = get_items
+
+      items[3].click
+      assert_menu
+      assert_nil page.driver.browser.current_url.split("#")[1]
+
+      items[4].click
+      assert_menu
+      assert_nil page.driver.browser.current_url.split("#")[1]
     end
 
+    # I actually hate how this works. I don't completely understand
+    # what's going on with these stupid disabled components.
     test "should be possible to focus an element, making it active" do
       with_preview(:default)
 

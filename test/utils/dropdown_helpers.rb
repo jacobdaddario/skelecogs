@@ -41,7 +41,7 @@ module DropdownHelpers
   end
 
   def get_items
-    all "a[role='menuitem']"
+    all "[data-dropdown-target='item']"
   end
 
   def click_outside_menu

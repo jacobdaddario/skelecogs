@@ -110,6 +110,8 @@ export default class extends Controller {
   silenceEventsOnDisabled(event) {
     if (event.currentTarget.getAttribute("disabled")) {
       event.preventDefault()
+      event.target.blur()
+
       return true
     }
   }
