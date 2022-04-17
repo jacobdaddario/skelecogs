@@ -252,7 +252,20 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
     # test "should  not be possilbe to activate a disabled item"
 
-    # Unable to do this until able to figure out the ID problem
-    # test "should be possible to focus an element, making it active"
+    test "should be possible to focus an element, making it active" do
+      with_preview(:default)
+
+      get_menu_button.click
+      assert_menu
+
+      items = get_items
+      assert_no_active_menu_items
+
+      items[0].trigger("focus")
+      assert_menu_linked_with_item(items[0])
+
+      items[0].trigger("blur")
+      assert_no_active_menu_items
+    end
   end
 end
