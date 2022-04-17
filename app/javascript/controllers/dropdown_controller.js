@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isFocusableElement, focusableElements,  } from "../utils/focusable_helpers"
+import { isFocusableElement, focusEligibleElement  } from "../utils/focusable_helpers"
 import keyboard from "../utils/keyboard"
 
 export default class extends Controller {
@@ -16,7 +16,7 @@ export default class extends Controller {
 
   indexValueChanged() {
     if (this.indexValue >= 0) {
-      this.itemTargets[this.indexValue].querySelector(focusableElements.join(", ")).focus()
+      focusEligibleElement(this.itemTargets[this.indexValue])
     } else {
       this.itemsContainerTarget.focus()
     }

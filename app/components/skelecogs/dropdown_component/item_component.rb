@@ -2,7 +2,7 @@ module Skelecogs
   class DropdownComponent
     class ItemComponent < ApplicationComponent
       def call
-        content_tag tag_type, content, {class: classes, role: "menuitem", disabled: disabled, data: {action: "click->dropdown#afterSelection", "dropdown-target": "item"}}
+        tag.send(tag_type, **html_options, role: "menuitem", data: {action: "click->dropdown#afterSelection", "dropdown-target": "item"}) { content }
       end
 
       private

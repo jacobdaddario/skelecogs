@@ -5691,6 +5691,9 @@
     }
     return false;
   }
+  function focusEligibleElement(element) {
+    isFocusableElement(element) ? element.focus() : element.querySelector(focusableElements.join(", ")).focus();
+  }
 
   // app/javascript/utils/keyboard.js
   var keyboard_default = {
@@ -5708,7 +5711,7 @@
     }
     indexValueChanged() {
       if (this.indexValue >= 0) {
-        this.itemTargets[this.indexValue].querySelector(focusableElements.join(", ")).focus();
+        focusEligibleElement(this.itemTargets[this.indexValue]);
       } else {
         this.itemsContainerTarget.focus();
       }

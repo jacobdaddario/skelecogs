@@ -1,12 +1,10 @@
 module Skelecogs
   class ApplicationComponent < ViewComponent::Base
-    attr_reader :classes, :id, :disabled, :tag_type
+    attr_reader :tag_type, :html_options
 
     def initialize(**opts)
-      @classes = opts[:class]
-      @id = opts[:id]
-      @tag_type = opts[:as] || default_tag
-      @disabled = opts[:disabled]
+      @tag_type = opts.delete(:as) || default_tag
+      @html_options = opts
 
       initialization_hook(opts)
     end

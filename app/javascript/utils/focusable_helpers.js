@@ -23,3 +23,7 @@ export function isFocusableElement(element) {
 
   return false
 }
+
+export function focusEligibleElement(element) {
+  isFocusableElement(element) ? element.focus() : element.querySelector(focusableElements.join(", ")).focus()
+}
