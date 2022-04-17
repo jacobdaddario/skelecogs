@@ -8,7 +8,7 @@ module DropdownHelpers
   end
 
   def assert_menu_items(visible: true, count: 1)
-    visible ? assert_selector("div[role='menuitem']", count: count) : assert_selector("div[role='menuitem']", count: 0)
+    visible ? assert_selector("a[role='menuitem']", count: count) : assert_selector("a[role='menuitem']", count: 0)
   end
 
   def assert_menu_linked_with_button
@@ -29,7 +29,7 @@ module DropdownHelpers
   end
 
   def get_items
-    all "div[role='menuitem']"
+    all "a[role='menuitem']"
   end
 
   def click_outside_menu
