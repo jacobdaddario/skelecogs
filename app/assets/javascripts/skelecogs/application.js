@@ -5777,6 +5777,16 @@
     afterSelection() {
       this.openValue = false;
     }
+    setActive(event) {
+      if (!event.currentTarget.getAttribute("disabled")) {
+        this.itemsContainerTarget.setAttribute("aria-activedescendant", event.currentTarget.id);
+      }
+    }
+    removeActive(event) {
+      if (!event.currentTarget.getAttribute("disabled")) {
+        this.itemsContainerTarget.removeAttribute("aria-activedescendant");
+      }
+    }
   };
   __publicField(dropdown_controller_default, "targets", ["button", "itemsContainer", "item"]);
   __publicField(dropdown_controller_default, "classes", ["reveal"]);

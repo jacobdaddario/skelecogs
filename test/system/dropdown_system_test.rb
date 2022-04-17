@@ -28,7 +28,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         button_safe_send_keys(get_menu_button, :enter)
 
         assert_menu
-        assert_menu_items count: 4
+        assert_menu_items count: 5
       end
 
       test "should not be possible to open a menu button with enter when the button is disabled" do
@@ -67,7 +67,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
       get_menu_button.click
 
       assert_menu
-      assert_menu_items count: 4
+      assert_menu_items count: 5
       # Unfortunately, I'm unsure if this is possible
       # assert_menu_linked_with_button
     end
@@ -166,16 +166,70 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_active_element(filter_button)
     end
 
-    # Unable to test this until I've figured out how to do the IDs...
-    # test "should be able to hover an item and make it active"
+    test "should be able to hover an item and make it active" do
+      with_preview(:default)
 
-    # test "should not change active element when mousing over an already active element"
+      get_menu_button.click
+      items = get_items
 
-    # test "should not mark disabled items as active"
+      items[0].hover
+      assert_menu_linked_with_item(items[0])
 
-    # test "should be possible to mouse leave an item and make it inactive"
+      items[1].hover
+      assert_menu_linked_with_item(items[1])
 
-    # test "nothing should happen when mouse leaving a disabled element"
+      items[2].hover
+      assert_menu_linked_with_item(items[2])
+    end
+
+    test "should not change active element when mousing over an already active element" do
+      with_preview(:default)
+
+      get_menu_button.click
+      items = get_items
+
+      items[1].hover
+      assert_menu_linked_with_item(items[1])
+
+      items[1].hover
+      assert_menu_linked_with_item(items[1])
+    end
+
+    test "should not mark disabled items as active" do
+      with_preview(:default)
+
+      get_menu_button.click
+      items = get_items
+
+      items[4].hover
+      assert_no_active_menu_items
+    end
+
+    test "should be possible to mouse leave an item and make it inactive" do
+      with_preview(:default)
+
+      get_menu_button.click
+      items = get_items
+
+      items[1].hover
+      assert_menu_linked_with_item(items[1])
+
+      hover_outside_menu
+      assert_no_active_menu_items
+    end
+
+    test "nothing should happen when mouse leaving a disabled element" do
+      with_preview(:default)
+
+      get_menu_button.click
+      items = get_items
+
+      items[4].hover
+      assert_no_active_menu_items
+
+      hover_outside_menu
+      assert_no_active_menu_items
+    end
 
     test "clicking a menu items should close the menu" do
       with_preview(:default)

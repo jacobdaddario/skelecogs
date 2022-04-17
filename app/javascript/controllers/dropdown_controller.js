@@ -92,4 +92,16 @@ export default class extends Controller {
   afterSelection() {
     this.openValue = false
   }
+
+  setActive(event) {
+    if (!event.currentTarget.getAttribute("disabled")) {
+      this.itemsContainerTarget.setAttribute("aria-activedescendant", event.currentTarget.id)
+    }
+  }
+
+  removeActive(event) {
+    if (!event.currentTarget.getAttribute("disabled")) {
+      this.itemsContainerTarget.removeAttribute("aria-activedescendant")
+    }
+  }
 }

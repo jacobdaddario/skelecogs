@@ -16,6 +16,18 @@ module DropdownHelpers
     assert_selector "div[role='menu'][aria-labelledby='skelecogs-menu-button-1']"
   end
 
+  def assert_menu_linked_with_item(item)
+    assert_equal item[:id], get_menu["aria-activedescendant"]
+  end
+
+  def assert_no_active_menu_items
+    assert_nil get_menu["aria-activedescendant"]
+  end
+
+  def get_menu
+    find "div[role='menu']", match: :first
+  end
+
   def get_menus
     all "div[role='menu']"
   end
@@ -34,5 +46,9 @@ module DropdownHelpers
 
   def click_outside_menu
     find("#alternate-target").click
+  end
+
+  def hover_outside_menu
+    find("#alternate-target").hover
   end
 end
