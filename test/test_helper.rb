@@ -6,6 +6,11 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/mi
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../db/migrate", __dir__)
 require "rails/test_help"
 require "minitest/spec"
+require "parallel_tests"
+
+class ActiveSupport::TestCase
+  parallelize(workers: :number_of_processors, threshold: 25)
+end
 
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)

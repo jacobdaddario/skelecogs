@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "capybara", "~> 3"
   spec.add_development_dependency "cuprite", "= 0.13"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "parallel_tests", "~> 3.8"
 end
