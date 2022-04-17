@@ -1,4 +1,4 @@
-<%= tag.send(tag_type, **html_options, role: "menu", data: {"dropdown-target": "itemsContainer"}) do %>
+<%= tag.send(tag_type, **html_options, role: "menu", data: {"dropdown-target": "itemsContainer", controller: "prefixed-id", "prefixed-id-prefix-value": "dropdown-menu"}) do %>
   <% items.each do |item| %>
     <%= item %>
   <% end %>

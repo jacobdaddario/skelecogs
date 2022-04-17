@@ -5785,7 +5785,35 @@
     index: { type: Number, default: -1 }
   });
 
+  // app/javascript/controllers/prefixed_id_controller.js
+  var prefixed_id_controller_default = class extends Controller {
+    connect() {
+      if (!this.hasPrefixValue) {
+        throw new Error("Prefix is a required argument and is not present.");
+      }
+      this.element.id = `${this.prefixValue}-${this.newIdNumber}`;
+    }
+    get siblingElements() {
+      return document.querySelectorAll(`[id^='${this.prefixValue}']`);
+    }
+    get existingNumbers() {
+      var elements = Array.from(this.siblingElements);
+      return elements.map((elem) => elem.id.replace(/^\D+/g, ""));
+    }
+    get newIdNumber() {
+      if (this.existingNumbers.length <= 0) {
+        return 1;
+      } else {
+        return Math.max(...this.existingNumbers) + 1;
+      }
+    }
+  };
+  __publicField(prefixed_id_controller_default, "values", {
+    prefix: String
+  });
+
   // app/javascript/controllers/index.js
   application.register("dropdown", dropdown_controller_default);
+  application.register("prefixed-id", prefixed_id_controller_default);
 })();
 //# sourceMappingURL=assets/application.js.map
