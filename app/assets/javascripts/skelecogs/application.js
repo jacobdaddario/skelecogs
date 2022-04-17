@@ -5774,17 +5774,25 @@
           break;
       }
     }
-    afterSelection() {
+    afterSelection(event) {
+      if (this.silenceEventsOnDisabled(event))
+        return;
       this.openValue = false;
     }
     setActive(event) {
-      if (!event.currentTarget.getAttribute("disabled")) {
-        this.itemsContainerTarget.setAttribute("aria-activedescendant", event.currentTarget.id);
-      }
+      if (this.silenceEventsOnDisabled(event))
+        return;
+      this.itemsContainerTarget.setAttribute("aria-activedescendant", event.currentTarget.id);
     }
     removeActive(event) {
-      if (!event.currentTarget.getAttribute("disabled")) {
-        this.itemsContainerTarget.removeAttribute("aria-activedescendant");
+      if (this.silenceEventsOnDisabled(event))
+        return;
+      this.itemsContainerTarget.removeAttribute("aria-activedescendant");
+    }
+    silenceEventsOnDisabled(event) {
+      if (event.currentTarget.getAttribute("disabled")) {
+        event.preventDefault();
+        return true;
       }
     }
   };

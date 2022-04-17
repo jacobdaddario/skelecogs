@@ -244,13 +244,26 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_equal page.driver.browser.current_url.split("#")[1], item_text
     end
 
-    # Need to investigate more into how they get disabled to work on anchor tags to
-    # figure out what's going on with this.
-    # test "clicking a disabled menu does not close the menu"
+    test "clicking a disabled menu does not close the menu" do
+      with_preview(:default)
 
-    # test "should not be possible to focus a menu item which is disabled"
+      get_menu_button.click
+      assert_menu
 
-    # test "should  not be possilbe to activate a disabled item"
+      items = get_items
+      items[4].click
+
+      assert_menu
+      assert_nil page.driver.browser.current_url.split("#")[1]
+    end
+
+    test "should not be possible to focus a menu item which is disabled" do
+
+    end
+
+    test "should  not be possible to activate a disabled item" do
+
+    end
 
     test "should be possible to focus an element, making it active" do
       with_preview(:default)
