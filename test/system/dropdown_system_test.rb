@@ -192,8 +192,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
       assert_menu_linked_with_item(items[1])
 
       items[1].hover
-      assert_menu_linked_with_item(items[1])
-    end
+      assert_menu_linked_with_item(items[1]) end
 
     test "should not mark disabled items as active" do
       with_preview(:default)
