@@ -71,6 +71,9 @@ export default class extends Controller {
         if (document.activeElement == this.buttonTarget) {
           this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
         }
+        if (this.itemTargets.includes(document.activeElement)) {
+          this.buttonTarget.focus()
+        }
         break
       case keyboard.space:
         document.activeElement.click()

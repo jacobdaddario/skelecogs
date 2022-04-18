@@ -93,6 +93,23 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu visible: false
         assert_active_element(get_menu_button)
       end
+
+      test "should be possible to invoke the active menu item and close the menu with Enter" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        get_menu_button.click
+        assert_menu
+
+        item = get_items[0]
+        item_text = item.text
+        item.hover
+        button_safe_send_keys(item, keyboard.enter)
+
+        assert_menu visible: false
+        assert_active_element(get_menu_button)
+        assert_equal page.driver.browser.current_url.split("#")[1], item_text
+      end
     end
   end
 
