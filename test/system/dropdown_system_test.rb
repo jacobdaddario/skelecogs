@@ -59,7 +59,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
         button_safe_send_keys(get_menu_button, :enter)
 
-        assert_active_element(get_items[0])
+        assert_menu_linked_with_item(get_items[0])
       end
     end
   end
