@@ -11,5 +11,8 @@ module Skelecogs
 
     def button
     end
+
+    def empty
+    end
   end
 end
