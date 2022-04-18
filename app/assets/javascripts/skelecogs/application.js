@@ -5752,7 +5752,7 @@
           event.preventDefault();
           document.activeElement.click();
           if (document.activeElement == this.buttonTarget) {
-            this.indexValue = 0;
+            this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
           }
           break;
         case keyboard_default.space:

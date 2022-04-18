@@ -52,14 +52,24 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_no_active_menu_items
       end
 
-      test "should focus the first menu item when opening with enter" do
-        with_preview(:default)
+      test "should focus the first non-disabled item when opening with enter" do
+        with_preview(:first_item_disabled)
         assert_menu_button
         assert_menu visible: false
 
         button_safe_send_keys(get_menu_button, :enter)
 
-        assert_menu_linked_with_item(get_items[0])
+        assert_menu_linked_with_item(get_items[1])
+      end
+
+      test "should focus the first non-disabled item when opening with enter (jump over multiple disabled items)" do
+        with_preview(:multiple_start_items_disabled)
+        assert_menu_button
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, :enter)
+
+        assert_menu_linked_with_item(get_items[2])
       end
     end
   end
