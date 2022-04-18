@@ -1,0 +1,16 @@
+<%= render Skelecogs::DropdownComponent.new(class:"relative mt-8", reveal_with: "hidden") do |c| %>
+  <%= c.button(as: :button, class: "rounded-full focus:ring-2 focus:outline-none focus:ring-offset-2 focus:ring-emerald-500 group") do %>
+    <%= image_tag "https://pbs.twimg.com/profile_images/1508096405688180739/jSEP6wjg_400x400.jpg", class: "h-12 w-12 rounded-full border border-gray-400 group-focus:border-emerald-500" %>
+  <% end %>
+  <%= c.items_container(class: "z-50 absolute flex flex-col items-stretch border bg-white border-gray-300 transition-all duration-100 ease-in-out shadow rounded-lg py-2 mt-1.5 px-1.5 w-52") do |container| %>
+    <%= container.item(as: :a, href: "#settings", class: "inline-block h-full w-full bg-white px-3 py-1.5 my-2 text-gray-900 rounded-md hover:bg-emerald-500 hover:text-white focus:ring focus:ring-emerald-300 focus:outline-none") do %>
+      Account Settings
+    <% end %>
+    <%= container.item(as: :a, href: "#settings", class: "inline-block h-full w-full bg-white px-3 py-1.5 my-2 text-gray-900 rounded-md hover:bg-emerald-500 hover:text-white focus:ring focus:ring-emerald-300 focus:outline-none") do %>
+      Profile
+    <% end %>
+    <%= container.item(as: :button, href: "#logout", onclick: "window.location.href+='#logout'", class: "inline-block h-full w-full px-3 py-1.5 my-2 bg-emerald-500 text-white rounded-md focus:ring focus:ring-emerald-300 focus:outline-none") do %>
+      Log Out
+    <% end %>
+  <% end %>
+<% end %>

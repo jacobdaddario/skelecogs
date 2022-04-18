@@ -23,5 +23,8 @@ module Skelecogs
 
     def empty
     end
+
+    def user_menu_example
+    end
   end
 end
