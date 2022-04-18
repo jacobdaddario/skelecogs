@@ -71,6 +71,15 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
         assert_menu_linked_with_item(get_items[2])
       end
+
+      test "should have no active menu items when opening menu with enter and there are no non-disabled elements" do
+        with_preview(:all_items_disabled)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, :enter)
+
+        assert_no_active_menu_items
+      end
     end
   end
 

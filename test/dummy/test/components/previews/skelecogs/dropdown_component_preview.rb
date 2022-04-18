@@ -12,6 +12,9 @@ module Skelecogs
     def multiple_start_items_disabled
     end
 
+    def all_items_disabled
+    end
+
     def multiple
     end
 
