@@ -88,7 +88,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         get_menu_button.click
         assert_menu
 
-        get_menu.evaluate_script("this.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))")
+        button_safe_send_keys(get_menu, keyboard.enter)
 
         assert_menu visible: false
         assert_active_element(get_menu_button)

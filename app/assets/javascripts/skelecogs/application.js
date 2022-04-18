@@ -5750,6 +5750,10 @@
       switch (event.keyCode) {
         case keyboard_default.enter:
           event.preventDefault();
+          if (document.activeElement == this.itemsContainerTarget) {
+            this.buttonTarget.click();
+            return;
+          }
           document.activeElement.click();
           if (document.activeElement == this.buttonTarget) {
             this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));

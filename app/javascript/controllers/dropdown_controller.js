@@ -63,6 +63,9 @@ export default class extends Controller {
     switch(event.keyCode) {
       case keyboard.enter:
         event.preventDefault()
+        // This might be an egregious style error, but it looks like Ruby and makes me happy
+        if (document.activeElement == this.itemsContainerTarget) { this.buttonTarget.click(); return }
+
         document.activeElement.click()
 
         if (document.activeElement == this.buttonTarget) {
