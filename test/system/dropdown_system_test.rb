@@ -25,7 +25,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button_safe_send_keys(get_menu_button, :enter)
+        button_safe_send_keys(get_menu_button, keyboard.enter)
 
         assert_menu
         assert_menu_items count: 5
@@ -36,7 +36,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button_safe_send_keys(get_menu_button, :enter)
+        button_safe_send_keys(get_menu_button, keyboard.enter)
 
         assert_menu visible: false
         assert_menu_items visible: false
@@ -46,7 +46,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         with_preview(:empty)
 
         assert_menu visible: false
-        button_safe_send_keys(get_menu_button, :enter)
+        button_safe_send_keys(get_menu_button, keyboard.enter)
 
         assert_menu
         assert_no_active_menu_items
@@ -57,7 +57,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button_safe_send_keys(get_menu_button, :enter)
+        button_safe_send_keys(get_menu_button, keyboard.enter)
 
         assert_menu_linked_with_item(get_items[1])
       end
@@ -67,7 +67,7 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_button
         assert_menu visible: false
 
-        button_safe_send_keys(get_menu_button, :enter)
+        button_safe_send_keys(get_menu_button, keyboard.enter)
 
         assert_menu_linked_with_item(get_items[2])
       end
@@ -76,9 +76,22 @@ class DropdownSystemTest < ApplicationSystemTestCase
         with_preview(:all_items_disabled)
 
         assert_menu visible: false
-        button_safe_send_keys(get_menu_button, :enter)
+        button_safe_send_keys(get_menu_button, keyboard.enter)
 
         assert_no_active_menu_items
+      end
+
+      test "should be possible to close the menu with enter when there are no active menu items" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        get_menu_button.click
+        assert_menu
+
+        get_menu.evaluate_script("this.dispatchEvent(new KeyboardEvent('keydown', {'key': 'a'}))")
+
+        assert_menu visible: false
+        assert_active_element(get_menu_button)
       end
     end
   end
