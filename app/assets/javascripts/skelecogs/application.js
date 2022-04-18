@@ -5712,7 +5712,7 @@
     indexValueChanged() {
       if (this.indexValue >= 0) {
         focusEligibleElement(this.itemTargets[this.indexValue]);
-      } else {
+      } else if (this.openValue) {
         this.itemsContainerTarget.focus();
       }
     }
