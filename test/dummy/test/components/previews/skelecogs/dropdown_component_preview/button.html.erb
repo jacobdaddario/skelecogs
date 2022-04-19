@@ -18,7 +18,7 @@
     <%= container.item(as: :a, href: "#banana", disabled: true, class: "inline-block cursor-not-allowed h-full w-full px-3 py-1.5 my-1 bg-gray-100 text-gray-500 rounded-md focus:bg-red-600 focus:outline-none") do %>
       Banana
     <% end %>
-    <%= container.item(as: :div, disabled: true, class: "inline-block h-full w-full my-1") do %>
+    <%= container.item(as: :div, disabled: true, onclick: "window.location.href+='#Checkout'", class: "pointer-events-none inline-block h-full w-full my-1") do %>
       <%= button_tag "Checkout", action: "#checkout", class: "px-2.5 py-1.5 w-full rounded-md bg-gray-100 text-gray-500 cursor-not-allowed focus:bg-red-600 focus:outline-none" %>
     <% end %>
   <% end %>
