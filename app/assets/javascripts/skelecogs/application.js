@@ -5749,21 +5749,10 @@
       var maxIndex = this.itemTargets.length - 1;
       switch (event.keyCode) {
         case keyboard_default.enter:
-          event.preventDefault();
-          if (document.activeElement == this.itemsContainerTarget) {
-            this.buttonTarget.click();
-            return;
-          }
-          document.activeElement.click();
-          if (document.activeElement == this.buttonTarget) {
-            this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
-          }
-          if (this.itemTargets.includes(document.activeElement)) {
-            this.buttonTarget.focus();
-          }
+          this.keyClickHotkey(event);
           break;
         case keyboard_default.space:
-          document.activeElement.click();
+          this.keyClickHotkey(event);
           break;
         case keyboard_default.upArrow:
           if (this.indexValue > 0) {
@@ -5801,6 +5790,20 @@
         event.preventDefault();
         event.target.blur();
         return true;
+      }
+    }
+    keyClickHotkey(event) {
+      event.preventDefault();
+      if (document.activeElement == this.itemsContainerTarget) {
+        this.buttonTarget.click();
+        return;
+      }
+      document.activeElement.click();
+      if (document.activeElement == this.buttonTarget) {
+        this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
+      }
+      if (this.itemTargets.includes(document.activeElement)) {
+        this.buttonTarget.focus();
       }
     }
   };

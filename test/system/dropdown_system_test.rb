@@ -121,8 +121,101 @@ class DropdownSystemTest < ApplicationSystemTestCase
         item_button = get_items[2]
         item_text = "logout"
 
-        item_button.click
+        button_safe_send_keys(item_button, keyboard.enter)
         assert_menu visible: false
+        assert_equal page.driver.browser.current_url.split("#")[1], item_text
+      end
+    end
+
+    class SpaceKeyTest < DropdownSystemTest
+      test "should be possible to open a menu with the space button" do
+        with_preview(:default)
+        assert_menu_button
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_menu
+        assert_menu_items count: 5
+      end
+
+      test "should not be possible to open a menu button with space when the button is disabled" do
+        with_preview(:disabled)
+        assert_menu_button
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_menu visible: false
+        assert_menu_items visible: false
+      end
+
+      test "should have no active menu items when there are no menu items" do
+        with_preview(:empty)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_menu
+        assert_no_active_menu_items
+      end
+
+      test "should focus the first non-disabled item when opening with space" do
+        with_preview(:first_item_disabled)
+        assert_menu_button
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_menu_linked_with_item(get_items[1])
+      end
+
+      test "should focus the first non-disabled item when opening with space (jump over multiple disabled items)" do
+        with_preview(:multiple_start_items_disabled)
+        assert_menu_button
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_menu_linked_with_item(get_items[2])
+      end
+
+      test "should have no active menu items when opening menu with space and there are no non-disabled elements" do
+        with_preview(:all_items_disabled)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_no_active_menu_items
+      end
+
+      test "should be possible to close the menu with space when there are no active menu items" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        get_menu_button.click
+        assert_menu
+
+        button_safe_send_keys(get_menu, keyboard.space)
+
+        assert_menu visible: false
+        assert_active_element(get_menu_button)
+      end
+
+      test "should be possible to invoke the active menu item and close the menu with Space" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        get_menu_button.click
+        assert_menu
+
+        item = get_items[0]
+        item_text = item.text
+        item.hover
+        button_safe_send_keys(item, keyboard.space)
+
+        assert_menu visible: false
+        assert_active_element(get_menu_button)
         assert_equal page.driver.browser.current_url.split("#")[1], item_text
       end
     end

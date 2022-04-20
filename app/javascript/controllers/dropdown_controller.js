@@ -62,21 +62,10 @@ export default class extends Controller {
 
     switch(event.keyCode) {
       case keyboard.enter:
-        event.preventDefault()
-        // This might be an egregious style error, but it looks like Ruby and makes me happy
-        if (document.activeElement == this.itemsContainerTarget) { this.buttonTarget.click(); return }
-
-        document.activeElement.click()
-
-        if (document.activeElement == this.buttonTarget) {
-          this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
-        }
-        if (this.itemTargets.includes(document.activeElement)) {
-          this.buttonTarget.focus()
-        }
+        this.keyClickHotkey(event)
         break
       case keyboard.space:
-        document.activeElement.click()
+        this.keyClickHotkey(event)
         break
       case keyboard.upArrow:
         if (this.indexValue > 0) {
@@ -119,6 +108,21 @@ export default class extends Controller {
       event.target.blur()
 
       return true
+    }
+  }
+
+  keyClickHotkey(event) {
+    event.preventDefault()
+    // This might be an egregious style error, but it looks like Ruby and makes me happy
+    if (document.activeElement == this.itemsContainerTarget) { this.buttonTarget.click(); return }
+
+    document.activeElement.click()
+
+    if (document.activeElement == this.buttonTarget) {
+      this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
+    }
+    if (this.itemTargets.includes(document.activeElement)) {
+      this.buttonTarget.focus()
     }
   }
 }
