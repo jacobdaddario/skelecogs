@@ -219,6 +219,23 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_equal page.driver.browser.current_url.split("#")[1], item_text
       end
     end
+
+    class EscapeKeyTest < DropdownSystemTest
+      test "should be possible to close an open menu with escape" do
+        with_preview(:default)
+
+        button_safe_send_keys(get_menu_button, keyboard.space)
+
+        assert_menu
+        assert_menu_items count: 5
+
+        button_safe_send_keys(get_menu, keyboard.escape)
+
+        assert_menu visible: false
+        assert_menu_items visible: false
+        assert_active_element(get_menu_button)
+      end
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest

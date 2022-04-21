@@ -54,6 +54,7 @@ export default class extends Controller {
   outsideKeyHandler(event) {
     if (event.keyCode == keyboard.escape) {
       this.openValue = false
+      this.buttonTarget.focus()
     }
   }
 
