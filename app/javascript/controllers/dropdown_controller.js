@@ -31,6 +31,8 @@ export default class extends Controller {
     this.revealClasses.forEach(klass => {
       this.itemsContainerTarget.classList.remove(klass)
     });
+    this.buttonTarget.setAttribute("aria-controls", this.itemsContainerTarget.id)
+    this.itemsContainerTarget.setAttribute("aria-labelledby", this.buttonTarget.id)
   }
 
   toggleClosed() {
@@ -75,7 +77,13 @@ export default class extends Controller {
           this.indexValue = maxIndex
         }
         break
-      case keyboard.downArrow:
+        case keyboard.downArrow:
+        if (!this.openValue && document.activeElement == this.buttonTarget) {
+          this.toggle(event)
+          this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
+          return
+        }
+
         if (this.indexValue < maxIndex) {
           this.indexValue += 1
         } else {

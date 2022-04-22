@@ -236,6 +236,25 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_active_element(get_menu_button)
       end
     end
+
+    # I'm going to come back to this later.
+    # class TabKeyTest < DropdownSystemTest
+
+    class ArrowDownKeyTest < DropdownSystemTest
+      test "should be possible to open the menu with ArrowDown" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.downArrow)
+
+        assert_menu
+        assert_menu_linked_with_button
+
+        assert_menu_items count: 5
+        assert_menu_linked_with_item get_items[0]
+      end
+
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest

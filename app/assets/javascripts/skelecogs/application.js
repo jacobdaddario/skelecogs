@@ -5724,6 +5724,8 @@
       this.revealClasses.forEach((klass) => {
         this.itemsContainerTarget.classList.remove(klass);
       });
+      this.buttonTarget.setAttribute("aria-controls", this.itemsContainerTarget.id);
+      this.itemsContainerTarget.setAttribute("aria-labelledby", this.buttonTarget.id);
     }
     toggleClosed() {
       this.revealClasses.forEach((klass) => {
@@ -5763,6 +5765,11 @@
           }
           break;
         case keyboard_default.downArrow:
+          if (!this.openValue && document.activeElement == this.buttonTarget) {
+            this.toggle(event);
+            this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
+            return;
+          }
           if (this.indexValue < maxIndex) {
             this.indexValue += 1;
           } else {

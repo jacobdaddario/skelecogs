@@ -12,8 +12,8 @@ module DropdownHelpers
   end
 
   def assert_menu_linked_with_button
-    assert_selector "button[role='button'][aria-controls='skelecogs-menu-items-1']"
-    assert_selector "div[role='menu'][aria-labelledby='skelecogs-menu-button-1']"
+    assert_selector "button[role='button'][aria-controls='dropdown-menu-1']"
+    assert_selector "div[role='menu'][aria-labelledby='dropdown-button-1']"
   end
 
   def assert_menu_linked_with_item(item)
