@@ -3,5 +3,5 @@ export default {
   escape: 27,
   space: 32,
   upArrow: 38,
-  downArrow: 40,
+  downArrow: 40
 }

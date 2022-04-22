@@ -77,7 +77,7 @@ export default class extends Controller {
           this.indexValue = maxIndex
         }
         break
-        case keyboard.downArrow:
+      case keyboard.downArrow:
         if (!this.openValue && document.activeElement == this.buttonTarget) {
           this.toggle(event)
           this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
@@ -86,8 +86,6 @@ export default class extends Controller {
 
         if (this.indexValue < maxIndex) {
           this.indexValue += 1
-        } else {
-          this.indexValue = 0
         }
         break
     }

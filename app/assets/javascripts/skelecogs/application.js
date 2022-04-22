@@ -5772,8 +5772,6 @@
           }
           if (this.indexValue < maxIndex) {
             this.indexValue += 1;
-          } else {
-            this.indexValue = 0;
           }
           break;
       }

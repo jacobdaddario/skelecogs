@@ -8,7 +8,7 @@ module DropdownHelpers
   end
 
   def assert_menu_items(visible: true, count: 1)
-    visible ? assert_selector("a[role='menuitem']", count: count) : assert_selector("a[role='menuitem']", count: 0)
+    visible ? assert_selector("[role='menuitem']", count: count) : assert_selector("[role='menuitem']", count: 0)
   end
 
   def assert_menu_linked_with_button

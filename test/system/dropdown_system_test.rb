@@ -254,6 +254,49 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_linked_with_item get_items[0]
       end
 
+      test "should not be possible to open the menu with the down button when the menu button is disabled" do
+        with_preview(:disabled)
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, keyboard.downArrow)
+
+        assert_menu visible: false
+      end
+
+      test "should have no active menu items when there are no menu items at all" do
+        with_preview(:empty)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.downArrow)
+
+        assert_menu
+        assert_no_active_menu_items
+      end
+
+      test "should be possible to use the down arrow to navigate the menu" do
+        with_preview(:user_menu_example)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+        assert_menu_items count: 3
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.downArrow)
+        assert_menu_linked_with_item items[1]
+
+        button_safe_send_keys(items[1], keyboard.downArrow)
+        assert_menu_linked_with_item items[2]
+
+        # Should not wrap focus on current implementation.
+        button_safe_send_keys(items[2], keyboard.downArrow)
+        assert_menu_linked_with_item items[2]
+      end
+
+      # test "should be possible to use down arrow to navigate the menu items and skip the first disabled one"
+
+      # test "should be possible to use down arrow to navigate the menu items and jump to the first non disabled one"
     end
   end
 
