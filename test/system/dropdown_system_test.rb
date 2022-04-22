@@ -294,7 +294,19 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_linked_with_item items[2]
       end
 
-      # test "should be possible to use down arrow to navigate the menu items and skip the first disabled one"
+      test "should be possible to use down arrow to navigate the menu items and skip the first disabled one" do
+        with_preview(:first_item_disabled)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+        assert_menu_items count: 5
+        assert_menu_linked_with_item items[1]
+
+        button_safe_send_keys(items[1], keyboard.downArrow)
+        assert_menu_linked_with_item items[2]
+      end
 
       # test "should be possible to use down arrow to navigate the menu items and jump to the first non disabled one"
     end
