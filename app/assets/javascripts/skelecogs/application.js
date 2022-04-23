@@ -5771,7 +5771,15 @@
             return;
           }
           if (this.indexValue < maxIndex) {
-            this.indexValue += 1;
+            let newIndex = this.indexValue + 1;
+            while (newIndex <= maxIndex) {
+              if (!this.itemTargets[newIndex].getAttribute("disabled")) {
+                this.indexValue = newIndex;
+                break;
+              } else {
+                newIndex += 1;
+              }
+            }
           }
           break;
       }

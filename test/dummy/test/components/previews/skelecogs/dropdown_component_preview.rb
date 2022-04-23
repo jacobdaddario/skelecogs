@@ -26,5 +26,11 @@ module Skelecogs
 
     def user_menu_example
     end
+
+    def disabled_jump
+    end
+
+    def disabled_multiple_jump
+    end
   end
 end

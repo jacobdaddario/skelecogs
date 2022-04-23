@@ -308,7 +308,47 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_linked_with_item items[2]
       end
 
-      # test "should be possible to use down arrow to navigate the menu items and jump to the first non disabled one"
+      test "should be possible to use down arrow to navigate the menu items and jump to the first non disabled one" do
+        with_preview(:multiple_start_items_disabled)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+        assert_menu_items count: 6
+        assert_menu_linked_with_item items[2]
+
+        button_safe_send_keys(items[1], keyboard.downArrow)
+        assert_menu_linked_with_item items[3]
+      end
+
+      test "can jump disabled menu items" do
+        with_preview(:disabled_jump)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        assert_menu_items count: 5
+        items = get_items
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.downArrow)
+        assert_menu_linked_with_item items[2]
+      end
+
+      test "can jump disabled menu items (multiple)" do
+        with_preview(:disabled_multiple_jump)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        assert_menu_items count: 6
+        items = get_items
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.downArrow)
+        assert_menu_linked_with_item items[3]
+      end
     end
   end
 
