@@ -5758,11 +5758,24 @@
           this.keyClickHotkey(event);
           break;
         case keyboard_default.upArrow:
-          if (this.indexValue > 0) {
-            this.indexValue -= 1;
-          } else {
-            this.indexValue = maxIndex;
+          if (!this.openValue && document.activeElement == this.buttonTarget) {
+            this.toggle(event);
+            let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
+            this.indexValue = maxIndex - reversedIndex;
+            return;
           }
+          if (this.indexValue > 0) {
+            let newIndex = this.indexValue - 1;
+            while (newIndex >= 0) {
+              if (!this.itemTargets[newIndex].getAttribute("disabled")) {
+                this.indexValue = newIndex;
+                break;
+              } else {
+                newIndex -= 1;
+              }
+            }
+          }
+          break;
           break;
         case keyboard_default.downArrow:
           if (!this.openValue && document.activeElement == this.buttonTarget) {

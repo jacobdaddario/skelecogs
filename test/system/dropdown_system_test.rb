@@ -350,6 +350,71 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_linked_with_item items[3]
       end
     end
+
+    class ArrowUpKeyTest < DropdownSystemTest
+      test "should be possible to open the menu with ArrowUp and the last menu item should be selected" do
+        with_preview(:disabled_jump)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        assert_menu
+        assert_menu_linked_with_button
+
+        assert_menu_items count: 5
+        assert_menu_linked_with_item get_items[4]
+      end
+
+      test "should not be possible to open the menu with the ArrowUp when the menu button is disabled" do
+        with_preview(:disabled)
+        assert_menu visible: false
+
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        assert_menu visible: false
+      end
+
+      test "should have no active menu items when there are no menu items at all" do
+        with_preview(:empty)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        assert_menu
+        assert_no_active_menu_items
+      end
+
+      test "should be possible to use down arrow to navigate the menu items and skip the first disabled one" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        items = get_items
+        assert_menu_items count: 5
+        assert_menu_linked_with_item items[3]
+
+        button_safe_send_keys(items[1], keyboard.upArrow)
+        assert_menu_linked_with_item items[2]
+      end
+
+      test "should not be possible to navigate up or down if there is only one non-disabled item" do
+        with_preview(:one_active)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+        assert_menu_items count: 3
+        assert_menu_linked_with_item(items[1])
+
+        button_safe_send_keys(items[1], keyboard.upArrow)
+        assert_menu_linked_with_item(items[1])
+
+        button_safe_send_keys(items[1], keyboard.downArrow)
+        assert_menu_linked_with_item(items[1])
+      end
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest

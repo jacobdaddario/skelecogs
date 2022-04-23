@@ -32,5 +32,8 @@ module Skelecogs
 
     def disabled_multiple_jump
     end
+
+    def one_active
+    end
   end
 end
