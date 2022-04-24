@@ -5792,6 +5792,8 @@
           this.jumpToBottom(maxIndex);
           break;
         case keyboard_default.home:
+          this.jumpToTop();
+          break;
         case keyboard_default.pageUp:
           this.jumpToTop();
           break;

@@ -103,6 +103,8 @@ export default class extends Controller {
         this.jumpToBottom(maxIndex)
         break
       case keyboard.home:
+        this.jumpToTop()
+        break
       case keyboard.pageUp:
         this.jumpToTop()
         break
