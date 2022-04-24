@@ -5710,14 +5710,25 @@
 
   // app/javascript/controllers/dropdown_controller.js
   var dropdown_controller_default = class extends Controller {
-    openValueChanged() {
-      this.openValue ? this.toggleOpen() : this.toggleClosed();
+    get ignoredKeys() {
+      return ["Alt", "AltGraph", "CapsLock", "Control", "Fn", "FnLock", "Meta", "NumLock", "ScrollLock", "Shift", "Symbol", "SymbolLock"];
     }
-    indexValueChanged() {
-      if (this.indexValue >= 0) {
+    openValueChanged(open) {
+      open ? this.toggleOpen() : this.toggleClosed();
+    }
+    indexValueChanged(index) {
+      if (index >= 0) {
         focusEligibleElement(this.itemTargets[this.indexValue]);
       } else if (this.openValue) {
         this.itemsContainerTarget.focus();
+      }
+    }
+    searchValueChanged(searchTerm) {
+      var foundIndex = this.itemTargets.findIndex((item) => {
+        return item.textContent?.trim()?.startsWith(searchTerm);
+      });
+      if (foundIndex || foundIndex === 0 && searchTerm != "") {
+        this.indexValue = foundIndex;
       }
     }
     toggle(event) {
@@ -5797,6 +5808,12 @@
         case keyboard_default.pageUp:
           this.jumpToTop();
           break;
+        default:
+          if (!this.ignoredKeys.includes(event.key)) {
+            this.searchValue += event.key;
+            this.setExpiry();
+          }
+          break;
       }
     }
     setActive(event) {
@@ -5841,6 +5858,12 @@
     jumpToTop() {
       this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
     }
+    setExpiry() {
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = setTimeout(() => {
+        this.searchValue = "";
+      }, 350);
+    }
     keyClickHotkey(event) {
       event.preventDefault();
       if (document.activeElement == this.itemsContainerTarget) {
@@ -5860,7 +5883,8 @@
   __publicField(dropdown_controller_default, "classes", ["reveal"]);
   __publicField(dropdown_controller_default, "values", {
     open: { type: Boolean, default: false },
-    index: { type: Number, default: -1 }
+    index: { type: Number, default: -1 },
+    search: { type: String, default: "" }
   });
 
   // app/javascript/controllers/prefixed_id_controller.js

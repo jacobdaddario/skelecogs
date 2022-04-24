@@ -7,20 +7,34 @@ export default class extends Controller {
   static classes = [ "reveal" ]
   static values = {
     open: { type: Boolean, default: false },
-    index: { type: Number, default: -1 }
+    index: { type: Number, default: -1 },
+    search: { type: String, default: "" }
+  }
+
+  // Accessors
+  get ignoredKeys() {
+    return ["Alt", "AltGraph", "CapsLock", "Control", "Fn", "FnLock", "Meta", "NumLock", "ScrollLock", "Shift", "Symbol", "SymbolLock"]
   }
 
   // Value callbacks
-  openValueChanged() {
-    this.openValue ? this.toggleOpen() : this.toggleClosed()
+  openValueChanged(open) {
+    open ? this.toggleOpen() : this.toggleClosed()
   }
 
-  indexValueChanged() {
-    if (this.indexValue >= 0) {
+  indexValueChanged(index) {
+    if (index >= 0) {
       focusEligibleElement(this.itemTargets[this.indexValue])
     } else if (this.openValue) {
       this.itemsContainerTarget.focus()
     }
+  }
+
+  searchValueChanged(searchTerm) {
+    var foundIndex = this.itemTargets.findIndex((item) => {
+      return item.textContent?.trim()?.startsWith(searchTerm)
+    })
+
+    if (foundIndex || foundIndex === 0 && searchTerm != "") { this.indexValue = foundIndex }
   }
 
   // Actions
@@ -108,6 +122,12 @@ export default class extends Controller {
       case keyboard.pageUp:
         this.jumpToTop()
         break
+      default:
+        if (!this.ignoredKeys.includes(event.key)) {
+          this.searchValue += event.key
+          this.setExpiry()
+        }
+        break
     }
   }
 
@@ -161,6 +181,15 @@ export default class extends Controller {
 
   jumpToTop() {
     this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
+  }
+
+  setExpiry() {
+    clearTimeout(this.searchTimeout)
+    this.searchTimeout = setTimeout(() => {
+        this.searchValue = ""
+      },
+      350
+    )
   }
 
   keyClickHotkey(event) {

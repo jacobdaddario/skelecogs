@@ -638,6 +638,24 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_no_active_menu_items
       end
     end
+
+    class SearchTest < DropdownSystemTest
+      test "should be possible to type a full word that has a perfect match" do
+        with_preview(:default)
+
+        get_menu_button.click
+        items = get_items
+
+        type_word "Cheese"
+        assert_menu_linked_with_item items[1]
+
+        type_word "Eggs"
+        assert_menu_linked_with_item items[0]
+
+        type_word "Milk"
+        assert_menu_linked_with_item items[2]
+      end
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest
