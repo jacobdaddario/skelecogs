@@ -414,6 +414,29 @@ class DropdownSystemTest < ApplicationSystemTestCase
         button_safe_send_keys(items[1], keyboard.downArrow)
         assert_menu_linked_with_item(items[1])
       end
+
+      test "should be possible to navigate the menu with the up arrow" do
+        with_preview(:user_menu_example)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        assert_menu
+        assert_menu_linked_with_button
+
+        items = get_items
+        assert_menu_linked_with_item items[2]
+
+        button_safe_send_keys(items[2], keyboard.upArrow)
+        assert_menu_linked_with_item items[1]
+
+        button_safe_send_keys(items[1], keyboard.upArrow)
+        assert_menu_linked_with_item items[0]
+
+        # Should not go up again because the menu is at the top.
+        button_safe_send_keys(items[0], keyboard.upArrow)
+        assert_menu_linked_with_item items[0]
+      end
     end
   end
 
