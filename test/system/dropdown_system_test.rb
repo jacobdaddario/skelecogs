@@ -489,6 +489,106 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_no_active_menu_items
       end
     end
+
+    class PageDownKeyTest < DropdownSystemTest
+      test "should be possible to use the page down key to get the last menu item" do
+        with_preview(:user_menu_example)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.pageDown)
+        assert_menu_linked_with_item items[2]
+      end
+
+      test "should be possible to use the page down key to get the last non-disabled menu item" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.pageDown)
+        assert_menu_linked_with_item items[3]
+      end
+
+      test "should be possible to use the page down key to go to the first menu item if that is the only non-disabled item" do
+        with_preview(:all_disabled_but_start)
+
+        get_menu_button.click
+
+        assert_no_active_menu_items
+        button_safe_send_keys(get_menu, keyboard.pageDown)
+
+        assert_menu_linked_with_item get_items[0]
+      end
+
+      test "should have not active menu items upon page down key press if there are no non-disabled items" do
+        with_preview(:all_items_disabled)
+
+        get_menu_button.click
+        assert_no_active_menu_items
+
+        button_safe_send_keys(get_menu, keyboard.pageDown)
+        assert_no_active_menu_items
+      end
+    end
+
+    class HomeKeyTest < DropdownSystemTest
+      test "should be possible to use the home key to get the first menu item" do
+        with_preview(:user_menu_example)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        items = get_items
+
+        assert_menu_linked_with_item items[2]
+
+        button_safe_send_keys(items[2], keyboard.home)
+        assert_menu_linked_with_item items[0]
+      end
+
+      test "should be possible to use the home key to get the first non-disabled menu item" do
+        with_preview(:first_item_disabled)
+
+        assert_menu visible: false
+        get_menu_button.click
+
+        assert_no_active_menu_items
+        button_safe_send_keys(get_menu, keyboard.home)
+
+        assert_menu_linked_with_item get_items[1]
+      end
+
+      test "should be possible to use the home key to go to the last menu item if that is the only non-disabled item" do
+        with_preview(:all_disabled_but_end)
+
+        get_menu_button.click
+
+        assert_no_active_menu_items
+        button_safe_send_keys(get_menu, keyboard.home)
+
+        assert_menu_linked_with_item get_items[2]
+      end
+
+      test "should have not active menu items upon home key press if there are no non-disabled items" do
+        with_preview(:all_items_disabled)
+
+        get_menu_button.click
+        assert_no_active_menu_items
+
+        button_safe_send_keys(get_menu, keyboard.home)
+        assert_no_active_menu_items
+      end
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest

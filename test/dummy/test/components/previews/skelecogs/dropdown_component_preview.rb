@@ -38,5 +38,8 @@ module Skelecogs
 
     def all_disabled_but_start
     end
+
+    def all_disabled_but_end
+    end
   end
 end

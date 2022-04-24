@@ -10,6 +10,7 @@ export default class extends Controller {
     index: { type: Number, default: -1 }
   }
 
+  // Value callbacks
   openValueChanged() {
     this.openValue ? this.toggleOpen() : this.toggleClosed()
   }
@@ -22,24 +23,10 @@ export default class extends Controller {
     }
   }
 
+  // Actions
   toggle(event) {
     event && event.preventDefault()
     this.openValue = !this.openValue
-  }
-
-  toggleOpen() {
-    this.revealClasses.forEach(klass => {
-      this.itemsContainerTarget.classList.remove(klass)
-    });
-    this.buttonTarget.setAttribute("aria-controls", this.itemsContainerTarget.id)
-    this.itemsContainerTarget.setAttribute("aria-labelledby", this.buttonTarget.id)
-  }
-
-  toggleClosed() {
-    this.revealClasses.forEach(klass => {
-      this.itemsContainerTarget.classList.add(klass)
-    });
-    this.indexValue = -1
   }
 
   outsideClickHandler(event) {
@@ -73,8 +60,7 @@ export default class extends Controller {
       case keyboard.upArrow:
         if (!this.openValue && document.activeElement == this.buttonTarget) {
           this.toggle(event)
-          let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"))
-          this.indexValue = maxIndex - reversedIndex
+          this.jumpToBottom(maxIndex)
           return
         }
 
@@ -94,7 +80,7 @@ export default class extends Controller {
       case keyboard.downArrow:
         if (!this.openValue && document.activeElement == this.buttonTarget) {
           this.toggle(event)
-          this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
+          this.jumpToTop()
           return
         }
 
@@ -111,16 +97,15 @@ export default class extends Controller {
         }
         break
       case keyboard.end:
-        let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"))
-        this.indexValue = maxIndex - reversedIndex
+        this.jumpToBottom(maxIndex)
+        break
+      case keyboard.pageDown:
+        this.jumpToBottom(maxIndex)
+        break
+      case keyboard.home:
+        this.jumpToTop()
         break
     }
-  }
-
-  afterSelection(event) {
-    if (this.silenceEventsOnDisabled(event)) return
-
-    this.openValue = false
   }
 
   setActive(event) {
@@ -135,6 +120,28 @@ export default class extends Controller {
     this.itemsContainerTarget.removeAttribute("aria-activedescendant")
   }
 
+  // Methods
+  toggleOpen() {
+    this.revealClasses.forEach(klass => {
+      this.itemsContainerTarget.classList.remove(klass)
+    });
+    this.buttonTarget.setAttribute("aria-controls", this.itemsContainerTarget.id)
+    this.itemsContainerTarget.setAttribute("aria-labelledby", this.buttonTarget.id)
+  }
+
+  toggleClosed() {
+    this.revealClasses.forEach(klass => {
+      this.itemsContainerTarget.classList.add(klass)
+    });
+    this.indexValue = -1
+  }
+
+  afterSelection(event) {
+    if (this.silenceEventsOnDisabled(event)) return
+
+    this.openValue = false
+  }
+
   silenceEventsOnDisabled(event) {
     if (event.currentTarget.getAttribute("disabled")) {
       event.preventDefault()
@@ -142,6 +149,15 @@ export default class extends Controller {
 
       return true
     }
+  }
+
+  jumpToBottom(maxIndex) {
+    var reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"))
+    this.indexValue = maxIndex - reversedIndex
+  }
+
+  jumpToTop() {
+    this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
   }
 
   keyClickHotkey(event) {

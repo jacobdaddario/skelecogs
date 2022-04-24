@@ -5700,7 +5700,9 @@
     enter: 13,
     escape: 27,
     space: 32,
+    pageDown: 34,
     end: 35,
+    home: 36,
     upArrow: 38,
     downArrow: 40
   };
@@ -5720,19 +5722,6 @@
     toggle(event) {
       event && event.preventDefault();
       this.openValue = !this.openValue;
-    }
-    toggleOpen() {
-      this.revealClasses.forEach((klass) => {
-        this.itemsContainerTarget.classList.remove(klass);
-      });
-      this.buttonTarget.setAttribute("aria-controls", this.itemsContainerTarget.id);
-      this.itemsContainerTarget.setAttribute("aria-labelledby", this.buttonTarget.id);
-    }
-    toggleClosed() {
-      this.revealClasses.forEach((klass) => {
-        this.itemsContainerTarget.classList.add(klass);
-      });
-      this.indexValue = -1;
     }
     outsideClickHandler(event) {
       if (event.target != this.element && !this.element.contains(event.target) && this.openValue == true) {
@@ -5761,8 +5750,7 @@
         case keyboard_default.upArrow:
           if (!this.openValue && document.activeElement == this.buttonTarget) {
             this.toggle(event);
-            let reversedIndex2 = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
-            this.indexValue = maxIndex - reversedIndex2;
+            this.jumpToBottom(maxIndex);
             return;
           }
           if (this.indexValue > 0) {
@@ -5781,7 +5769,7 @@
         case keyboard_default.downArrow:
           if (!this.openValue && document.activeElement == this.buttonTarget) {
             this.toggle(event);
-            this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
+            this.jumpToTop();
             return;
           }
           if (this.indexValue < maxIndex) {
@@ -5797,15 +5785,15 @@
           }
           break;
         case keyboard_default.end:
-          let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
-          this.indexValue = maxIndex - reversedIndex;
+          this.jumpToBottom(maxIndex);
+          break;
+        case keyboard_default.pageDown:
+          this.jumpToBottom(maxIndex);
+          break;
+        case keyboard_default.home:
+          this.jumpToTop();
           break;
       }
-    }
-    afterSelection(event) {
-      if (this.silenceEventsOnDisabled(event))
-        return;
-      this.openValue = false;
     }
     setActive(event) {
       if (this.silenceEventsOnDisabled(event))
@@ -5817,12 +5805,37 @@
         return;
       this.itemsContainerTarget.removeAttribute("aria-activedescendant");
     }
+    toggleOpen() {
+      this.revealClasses.forEach((klass) => {
+        this.itemsContainerTarget.classList.remove(klass);
+      });
+      this.buttonTarget.setAttribute("aria-controls", this.itemsContainerTarget.id);
+      this.itemsContainerTarget.setAttribute("aria-labelledby", this.buttonTarget.id);
+    }
+    toggleClosed() {
+      this.revealClasses.forEach((klass) => {
+        this.itemsContainerTarget.classList.add(klass);
+      });
+      this.indexValue = -1;
+    }
+    afterSelection(event) {
+      if (this.silenceEventsOnDisabled(event))
+        return;
+      this.openValue = false;
+    }
     silenceEventsOnDisabled(event) {
       if (event.currentTarget.getAttribute("disabled")) {
         event.preventDefault();
         event.target.blur();
         return true;
       }
+    }
+    jumpToBottom(maxIndex) {
+      var reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
+      this.indexValue = maxIndex - reversedIndex;
+    }
+    jumpToTop() {
+      this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
     }
     keyClickHotkey(event) {
       event.preventDefault();
