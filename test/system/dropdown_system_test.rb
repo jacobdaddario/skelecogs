@@ -589,6 +589,55 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_no_active_menu_items
       end
     end
+
+    class PageUpKeyTest < DropdownSystemTest
+      test "should be possible to use the page up key to get the first menu item" do
+        with_preview(:user_menu_example)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.upArrow)
+
+        items = get_items
+
+        assert_menu_linked_with_item items[2]
+
+        button_safe_send_keys(items[2], keyboard.pageUp)
+        assert_menu_linked_with_item items[0]
+      end
+
+      test "should be possible to use the page up key to get the first non-disabled menu item" do
+        with_preview(:first_item_disabled)
+
+        assert_menu visible: false
+        get_menu_button.click
+
+        assert_no_active_menu_items
+        button_safe_send_keys(get_menu, keyboard.pageUp)
+
+        assert_menu_linked_with_item get_items[1]
+      end
+
+      test "should be possible to use the page up key to go to the last menu item if that is the only non-disabled item" do
+        with_preview(:all_disabled_but_end)
+
+        get_menu_button.click
+
+        assert_no_active_menu_items
+        button_safe_send_keys(get_menu, keyboard.pageUp)
+
+        assert_menu_linked_with_item get_items[2]
+      end
+
+      test "should have not active menu items upon page up key press if there are no non-disabled items" do
+        with_preview(:all_items_disabled)
+
+        get_menu_button.click
+        assert_no_active_menu_items
+
+        button_safe_send_keys(get_menu, keyboard.pageUp)
+        assert_no_active_menu_items
+      end
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest

@@ -5700,6 +5700,7 @@
     enter: 13,
     escape: 27,
     space: 32,
+    pageUp: 33,
     pageDown: 34,
     end: 35,
     home: 36,
@@ -5791,6 +5792,7 @@
           this.jumpToBottom(maxIndex);
           break;
         case keyboard_default.home:
+        case keyboard_default.pageUp:
           this.jumpToTop();
           break;
       }
