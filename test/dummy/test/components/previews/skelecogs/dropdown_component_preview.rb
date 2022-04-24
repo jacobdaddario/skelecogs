@@ -35,5 +35,8 @@ module Skelecogs
 
     def one_active
     end
+
+    def all_disabled_but_start
+    end
   end
 end

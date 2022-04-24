@@ -5700,6 +5700,7 @@
     enter: 13,
     escape: 27,
     space: 32,
+    end: 35,
     upArrow: 38,
     downArrow: 40
   };
@@ -5760,8 +5761,8 @@
         case keyboard_default.upArrow:
           if (!this.openValue && document.activeElement == this.buttonTarget) {
             this.toggle(event);
-            let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
-            this.indexValue = maxIndex - reversedIndex;
+            let reversedIndex2 = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
+            this.indexValue = maxIndex - reversedIndex2;
             return;
           }
           if (this.indexValue > 0) {
@@ -5794,6 +5795,10 @@
               }
             }
           }
+          break;
+        case keyboard_default.end:
+          let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"));
+          this.indexValue = maxIndex - reversedIndex;
           break;
       }
     }

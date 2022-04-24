@@ -438,6 +438,57 @@ class DropdownSystemTest < ApplicationSystemTestCase
         assert_menu_linked_with_item items[0]
       end
     end
+
+    class EndKeyTest < DropdownSystemTest
+      test "should be possible to use the end key to get the last menu item" do
+        with_preview(:user_menu_example)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.end)
+        assert_menu_linked_with_item items[2]
+      end
+
+      test "should be possible to use the end key to get the last non-disabled menu item" do
+        with_preview(:default)
+
+        assert_menu visible: false
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+
+        items = get_items
+
+        assert_menu_linked_with_item items[0]
+
+        button_safe_send_keys(items[0], keyboard.end)
+        assert_menu_linked_with_item items[3]
+      end
+
+      test "should be possible to use the end key to go to the first menu item if that is the only non-disabled item" do
+        with_preview(:all_disabled_but_start)
+
+        get_menu_button.click
+
+        assert_no_active_menu_items
+        button_safe_send_keys(get_menu, keyboard.end)
+
+        assert_menu_linked_with_item get_items[0]
+      end
+
+      test "should have not active menu items upon end key press if there are no non-disabled items" do
+        with_preview(:all_items_disabled)
+
+        get_menu_button.click
+        assert_no_active_menu_items
+
+        button_safe_send_keys(get_menu, keyboard.end)
+        assert_no_active_menu_items
+      end
+    end
   end
 
   class MouseInteractionsTest < DropdownSystemTest

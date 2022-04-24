@@ -110,6 +110,10 @@ export default class extends Controller {
           }
         }
         break
+      case keyboard.end:
+        let reversedIndex = this.itemTargets.reverse().findIndex((elem) => !elem.getAttribute("disabled"))
+        this.indexValue = maxIndex - reversedIndex
+        break
     }
   }
 
