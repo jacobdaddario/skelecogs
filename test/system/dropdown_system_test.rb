@@ -700,6 +700,22 @@ class DropdownSystemTest < ApplicationSystemTestCase
 
         assert_menu_linked_with_item items[0]
       end
+
+      test "should be possible to search for a word (case-insensitive)" do
+        with_preview(:default)
+
+        get_menu_button.click
+        items = get_items
+
+        type_word(get_menu, "che")
+        assert_menu_linked_with_item items[1]
+
+        type_word(items[1], "eg")
+        assert_menu_linked_with_item items[0]
+
+        type_word(items[0], "mi")
+        assert_menu_linked_with_item items[2]
+      end
     end
   end
 

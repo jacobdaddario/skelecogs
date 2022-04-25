@@ -31,7 +31,8 @@ export default class extends Controller {
     if (prevSearchTerm == undefined) { return }
 
     var foundIndex = this.itemTargets.findIndex((item) => {
-      return item.textContent?.trim()?.startsWith(searchTerm) && !item.getAttribute("disabled")
+      let preppedText = item.textContent?.trim()?.toLowerCase()
+      return (preppedText?.startsWith(searchTerm) && !item.getAttribute("disabled"))
     })
 
     if (foundIndex == -1) { return }
@@ -127,7 +128,7 @@ export default class extends Controller {
         break
       default:
         if (!this.ignoredKeys.includes(event.key)) {
-          this.searchValue += event.key
+          this.searchValue += event.key.toLowerCase()
           this.setExpiry()
         }
         break
