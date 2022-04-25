@@ -688,6 +688,18 @@ class DropdownSystemTest < ApplicationSystemTestCase
         type_word(items[0], "Value C")
         assert_menu_linked_with_item items[2]
       end
+
+      test "should not be possible to search for a disabled item" do
+        with_preview(:default)
+
+        button_safe_send_keys(get_menu_button, keyboard.enter)
+        items = get_items
+
+        assert_menu_linked_with_item items[0]
+        type_word(items[0], "Bana")
+
+        assert_menu_linked_with_item items[0]
+      end
     end
   end
 

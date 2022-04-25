@@ -5711,7 +5711,7 @@
   // app/javascript/controllers/dropdown_controller.js
   var dropdown_controller_default = class extends Controller {
     get ignoredKeys() {
-      return ["Alt", "AltGraph", "CapsLock", "Control", "Fn", "FnLock", "Meta", "NumLock", "ScrollLock", "Shift", "Symbol", "SymbolLock"];
+      return ["Alt", "AltGraph", "CapsLock", "Control", "Fn", "FnLock", "Meta", "NumLock", "ScrollLock", "Shift", "Symbol", "SymbolLock", "Escape", "Enter"];
     }
     openValueChanged(open) {
       open ? this.toggleOpen() : this.toggleClosed();
@@ -5719,14 +5719,18 @@
     indexValueChanged(index) {
       if (index >= 0) {
         focusEligibleElement(this.itemTargets[this.indexValue]);
-      } else if (this.openValue) {
-        this.itemsContainerTarget.focus();
       }
     }
-    searchValueChanged(searchTerm) {
+    searchValueChanged(searchTerm, prevSearchTerm) {
+      if (prevSearchTerm == void 0) {
+        return;
+      }
       var foundIndex = this.itemTargets.findIndex((item) => {
-        return item.textContent?.trim()?.startsWith(searchTerm);
+        return item.textContent?.trim()?.startsWith(searchTerm) && !item.getAttribute("disabled");
       });
+      if (foundIndex == -1) {
+        return;
+      }
       if (foundIndex || foundIndex === 0 && searchTerm != "") {
         this.indexValue = foundIndex;
       }
