@@ -72,7 +72,11 @@ export default class extends Controller {
         this.keyClickHotkey(event)
         break
       case keyboard.space:
-        if (this.searchValue != "") { this.searchValue += " "; return}
+        if (this.searchValue != "") {
+          this.searchValue += " "
+          this.setExpiry()
+          return
+        }
 
         this.keyClickHotkey(event)
         break

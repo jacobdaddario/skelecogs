@@ -5764,6 +5764,7 @@
         case keyboard_default.space:
           if (this.searchValue != "") {
             this.searchValue += " ";
+            this.setExpiry();
             return;
           }
           this.keyClickHotkey(event);
