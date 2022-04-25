@@ -41,5 +41,8 @@ module Skelecogs
 
     def all_disabled_but_end
     end
+
+    def search_test
+    end
   end
 end

@@ -69,6 +69,8 @@ export default class extends Controller {
         this.keyClickHotkey(event)
         break
       case keyboard.space:
+        if (this.searchValue != "") { this.searchValue += " "; return}
+
         this.keyClickHotkey(event)
         break
       case keyboard.upArrow:
@@ -89,7 +91,6 @@ export default class extends Controller {
             }
           }
         }
-        break
         break
       case keyboard.downArrow:
         if (!this.openValue && document.activeElement == this.buttonTarget) {
@@ -201,9 +202,10 @@ export default class extends Controller {
 
     if (document.activeElement == this.buttonTarget) {
       this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"))
-    }
-    if (this.itemTargets.includes(document.activeElement)) {
+      return
+    } else if (this.itemTargets.includes(document.activeElement)) {
       this.buttonTarget.focus()
+      return
     }
   }
 }

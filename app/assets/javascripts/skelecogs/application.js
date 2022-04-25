@@ -5757,6 +5757,10 @@
           this.keyClickHotkey(event);
           break;
         case keyboard_default.space:
+          if (this.searchValue != "") {
+            this.searchValue += " ";
+            return;
+          }
           this.keyClickHotkey(event);
           break;
         case keyboard_default.upArrow:
@@ -5776,7 +5780,6 @@
               }
             }
           }
-          break;
           break;
         case keyboard_default.downArrow:
           if (!this.openValue && document.activeElement == this.buttonTarget) {
@@ -5873,9 +5876,10 @@
       document.activeElement.click();
       if (document.activeElement == this.buttonTarget) {
         this.indexValue = this.itemTargets.findIndex((elem) => !elem.getAttribute("disabled"));
-      }
-      if (this.itemTargets.includes(document.activeElement)) {
+        return;
+      } else if (this.itemTargets.includes(document.activeElement)) {
         this.buttonTarget.focus();
+        return;
       }
     }
   };

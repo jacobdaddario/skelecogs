@@ -671,6 +671,23 @@ class DropdownSystemTest < ApplicationSystemTestCase
         type_word(items[0], "Mi")
         assert_menu_linked_with_item items[2]
       end
+
+      # I don't love this test. Worth revisiting sometime. Testing some JS in Ruby is a pain
+      test "should be possible to type words with spaces" do
+        with_preview(:search_test)
+
+        get_menu_button.click
+        items = get_items
+
+        type_word(get_menu_button, "Value B")
+        assert_menu_linked_with_item items[1]
+
+        type_word(items[1], "Value A")
+        assert_menu_linked_with_item items[0]
+
+        type_word(items[0], "Value C")
+        assert_menu_linked_with_item items[2]
+      end
     end
   end
 
