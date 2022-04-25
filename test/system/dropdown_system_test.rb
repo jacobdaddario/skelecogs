@@ -646,13 +646,13 @@ class DropdownSystemTest < ApplicationSystemTestCase
         get_menu_button.click
         items = get_items
 
-        type_word "Cheese"
+        type_word(get_menu, "Cheese")
         assert_menu_linked_with_item items[1]
 
-        type_word "Eggs"
+        type_word(items[1], "Eggs")
         assert_menu_linked_with_item items[0]
 
-        type_word "Milk"
+        type_word(items[0], "Milk")
         assert_menu_linked_with_item items[2]
       end
     end

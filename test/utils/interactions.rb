@@ -19,4 +19,14 @@ module Interactions
     elem.evaluate_script("this.focus()")
     elem.evaluate_script("this.dispatchEvent(new KeyboardEvent('keydown', {keyCode: #{key}, bubbles: true}))")
   end
+
+  def type_word(elem, word)
+    elem.evaluate_script("this.focus()")
+    word.each_char do |char|
+      elem.evaluate_script("this.dispatchEvent(new KeyboardEvent('keydown', {key: '#{char}', bubbles: true}))")
+    end
+
+    # This is the reset time for search terms. Important for testing the typing
+    sleep(0.35)
+  end
 end
