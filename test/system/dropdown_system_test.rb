@@ -716,6 +716,19 @@ class DropdownSystemTest < ApplicationSystemTestCase
         type_word(items[0], "mi")
         assert_menu_linked_with_item items[2]
       end
+
+      test "should be possible to search for the next occurence" do
+        with_preview(:search_test)
+
+        get_menu_button.click
+        items = get_items
+
+        type_word get_menu, "Value B"
+        assert_menu_linked_with_item items[1]
+
+        type_word get_menu, "Value B"
+        assert_menu_linked_with_item items[3]
+      end
     end
   end
 

@@ -8,7 +8,8 @@ export default class extends Controller {
   static values = {
     open: { type: Boolean, default: false },
     index: { type: Number, default: -1 },
-    search: { type: String, default: "" }
+    search: { type: String, default: "" },
+    searching: { type: Boolean, default: false }
   }
 
   // Accessors
@@ -30,13 +31,28 @@ export default class extends Controller {
   searchValueChanged(searchTerm, prevSearchTerm) {
     if (prevSearchTerm == undefined) { return }
 
-    var foundIndex = this.itemTargets.findIndex((item) => {
-      let preppedText = item.textContent?.trim()?.toLowerCase()
-      return (preppedText?.startsWith(searchTerm) && !item.getAttribute("disabled"))
-    })
+    // Pulled shamelessly from the HeadlessUI React code
+    let isSearching = this.searchingValue
+    let hasResultAlready = this.openValue && this.indexValue > -1
+    if (!isSearching) {
+      this.organizedTargets = hasResultAlready
+                               ? this.itemTargets
+                                   .slice(this.indexValue + 1)
+                                   .concat(this.itemTargets.slice(0, this.indexValue + 1))
+                               : this.itemTargets
+      this.searchingValue = true
+    }
 
-    if (foundIndex == -1) { return }
+    if (isSearching) {
+      var foundItem = this.organizedTargets.find((item) => {
+        let preppedText = item.textContent?.trim()?.toLowerCase()
+        return (preppedText?.startsWith(searchTerm) && !item.getAttribute("disabled"))
+      })
+    }
 
+    if (foundItem == -1) { return }
+
+    var foundIndex = this.itemTargets.indexOf(foundItem)
     if (foundIndex || foundIndex === 0 && searchTerm != "") { this.indexValue = foundIndex }
   }
 
@@ -74,7 +90,6 @@ export default class extends Controller {
       case keyboard.space:
         if (this.searchValue != "") {
           this.searchValue += " "
-          this.setExpiry()
           return
         }
 
@@ -195,6 +210,7 @@ export default class extends Controller {
     clearTimeout(this.searchTimeout)
     this.searchTimeout = setTimeout(() => {
         this.searchValue = ""
+        this.searchingValue = false
       },
       350
     )
