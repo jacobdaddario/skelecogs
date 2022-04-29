@@ -5731,13 +5731,13 @@
         this.organizedTargets = hasResultAlready ? this.itemTargets.slice(this.indexValue + 1).concat(this.itemTargets.slice(0, this.indexValue + 1)) : this.itemTargets;
         this.searchingValue = true;
       }
-      if (isSearching) {
+      if (searchTerm != "") {
         var foundItem = this.organizedTargets.find((item) => {
           let preppedText = item.textContent?.trim()?.toLowerCase();
           return preppedText?.startsWith(searchTerm) && !item.getAttribute("disabled");
         });
       }
-      if (foundItem == -1) {
+      if (foundItem == -1 || foundItem == void 0) {
         return;
       }
       var foundIndex = this.itemTargets.indexOf(foundItem);

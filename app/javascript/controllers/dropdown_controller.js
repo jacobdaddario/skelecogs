@@ -43,14 +43,14 @@ export default class extends Controller {
       this.searchingValue = true
     }
 
-    if (isSearching) {
+    if (searchTerm != "") {
       var foundItem = this.organizedTargets.find((item) => {
         let preppedText = item.textContent?.trim()?.toLowerCase()
         return (preppedText?.startsWith(searchTerm) && !item.getAttribute("disabled"))
       })
     }
 
-    if (foundItem == -1) { return }
+    if (foundItem == -1 || foundItem == undefined) { return }
 
     var foundIndex = this.itemTargets.indexOf(foundItem)
     if (foundIndex || foundIndex === 0 && searchTerm != "") { this.indexValue = foundIndex }

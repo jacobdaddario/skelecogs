@@ -679,13 +679,13 @@ class DropdownSystemTest < ApplicationSystemTestCase
         get_menu_button.click
         items = get_items
 
-        type_word(get_menu_button, "Value B")
+        type_word(get_menu_button, "Bob")
         assert_menu_linked_with_item items[1]
 
-        type_word(items[1], "Value A")
+        type_word(items[1], "Alex")
         assert_menu_linked_with_item items[0]
 
-        type_word(items[0], "Value C")
+        type_word(items[0], "Charlie")
         assert_menu_linked_with_item items[2]
       end
 
@@ -723,10 +723,35 @@ class DropdownSystemTest < ApplicationSystemTestCase
         get_menu_button.click
         items = get_items
 
-        type_word get_menu, "Value B"
+        type_word get_menu, "Bob"
         assert_menu_linked_with_item items[1]
 
-        type_word get_menu, "Value B"
+        type_word get_menu, "Bob"
+        assert_menu_linked_with_item items[3]
+      end
+
+      test "should stay on the same item while keystrokes still match" do
+        with_preview(:search_test)
+
+        get_menu_button.click
+        items = get_items
+
+        type_word get_menu_button, "B"
+        assert_menu_linked_with_item items[1]
+
+        type_word get_menu, "B"
+        assert_menu_linked_with_item items[3]
+
+        type_word get_menu, "Bo"
+        assert_menu_linked_with_item items[1]
+
+        type_word get_menu, "Bo"
+        assert_menu_linked_with_item items[3]
+
+        type_word get_menu, "Bob"
+        assert_menu_linked_with_item items[1]
+
+        type_word get_menu, "Bob"
         assert_menu_linked_with_item items[3]
       end
     end
