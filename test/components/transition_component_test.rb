@@ -50,6 +50,36 @@ class TransitionComponentTest < ViewComponent::TestCase
 
         assert_selector ".text-blue-500#root"
       end
+
+      test "should render a as a different html element when given by as" do
+        result = render_inline Skelecogs::TransitionComponent.new(show: true, as: :a) do |c|
+          "Children"
+        end
+
+        expected = build_fragment(<<~FRAGMENT
+          <a>
+            Children
+          </a>
+          FRAGMENT
+        )
+
+        assert_equal_fragments expected, result
+      end
+
+      test "should pass through the html options even when using the as optinon" do
+        result = render_inline Skelecogs::TransitionComponent.new(show: true, as: :a, href: "/", class: "text-blue-500") do |c|
+          "Children"
+        end
+
+        expected = build_fragment(<<~FRAGMENT
+          <a href='/' class='text-blue-500'>
+            Children
+          </a>
+          FRAGMENT
+        )
+
+        assert_equal_fragments expected, result
+      end
     end
   end
 end
