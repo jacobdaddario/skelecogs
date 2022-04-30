@@ -6,6 +6,7 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/mi
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../db/migrate", __dir__)
 require "rails/test_help"
 require "minitest/spec"
+require "nokogiri"
 require "parallel_tests"
 
 class ActiveSupport::TestCase

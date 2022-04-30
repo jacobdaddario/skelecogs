@@ -1,9 +1,8 @@
-# frozen_string_literal: true
-
 require "test_helper"
+require "utils/transition_helpers"
 
 class TransitionComponentTest < ViewComponent::TestCase
-  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::TagHelper, TransitionHelpers
 
   test "should render without crashing" do
     render_inline Skelecogs::TransitionComponent.new(show: true) do |c|
@@ -23,6 +22,25 @@ class TransitionComponentTest < ViewComponent::TestCase
     assert_raise ArgumentError do
       render_inline Skelecogs::TransitionComponent.new do |c|
         tag.div "Children", class: "hello"
+      end
+    end
+  end
+
+  class SetupAPITest < TransitionComponentTest
+    class ShallowTest < SetupAPITest
+      test "should render a div with content by default" do
+        result = render_inline Skelecogs::TransitionComponent.new(show: true) do |c|
+          "Children"
+        end
+
+        expected = build_fragment(<<~FRAGMENT
+          <div>
+            Children
+          </div>
+          FRAGMENT
+        )
+
+        assert_equal_fragments expected, result
       end
     end
   end

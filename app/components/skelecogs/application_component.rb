@@ -4,9 +4,9 @@ module Skelecogs
 
     def initialize(**opts)
       @tag_type = opts.delete(:as) || default_tag
-      @html_options = opts
 
       initialization_hook(opts)
+      @html_options = opts
     end
 
     def initialization_hook(opts)
