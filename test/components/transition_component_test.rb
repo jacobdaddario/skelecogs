@@ -12,4 +12,10 @@ class TransitionComponentTest < ViewComponent::TestCase
 
     assert_text "Children"
   end
+
+  test "should be possible to render a transition without children" do
+    render_inline Skelecogs::TransitionComponent.new(class: "transition")
+
+    assert_selector ".transition"
+  end
 end
