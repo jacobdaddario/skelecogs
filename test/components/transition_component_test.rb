@@ -42,6 +42,14 @@ class TransitionComponentTest < ViewComponent::TestCase
 
         assert_equal_fragments expected, result
       end
+
+      test "should pass through html options" do
+        result = render_inline Skelecogs::TransitionComponent.new(show: true, class: "text-blue-500", id: "root") do |c|
+          "Children"
+        end
+
+        assert_selector ".text-blue-500#root"
+      end
     end
   end
 end
