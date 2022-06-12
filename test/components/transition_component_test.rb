@@ -108,5 +108,11 @@ class TransitionComponentTest < ViewComponent::TestCase
         assert_equal_fragments expected, result
       end
     end
+
+    class NestedTest < SetupAPITest
+      include ActionView::Helpers::RenderingHelper
+      # Haven't figured out how to do this yet.
+      # test "should yell at us when we forget to wrap the `<Transition.child />` in a parent <Transition /> component" do
+    end
   end
 end
