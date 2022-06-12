@@ -1,0 +1,3 @@
+<%= render Skelecogs::TransitionComponent.new(class: "h-32 w-32 rounded-lg shadow-md bg-slate-100 border border-gray-200 cursor-pointer", show: true) do %>
+  <%= render Skelecogs::TransitionComponent::ChildComponent.new(id: "transition", class: "h-4 w-4 bg-red-500") %>
+<% end %>

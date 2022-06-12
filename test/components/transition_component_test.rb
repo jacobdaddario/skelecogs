@@ -34,7 +34,7 @@ class TransitionComponentTest < ViewComponent::TestCase
         end
 
         expected = build_fragment(<<~FRAGMENT
-          <div>
+          <div data-controller="transition" data-transition-show-value="true">
             Children
           </div>
           FRAGMENT
@@ -57,7 +57,7 @@ class TransitionComponentTest < ViewComponent::TestCase
         end
 
         expected = build_fragment(<<~FRAGMENT
-          <a>
+          <a data-controller="transition" data-transition-show-value="true">
             Children
           </a>
           FRAGMENT
@@ -66,13 +66,13 @@ class TransitionComponentTest < ViewComponent::TestCase
         assert_equal_fragments expected, result
       end
 
-      test "should pass through the html options even when using the as optinon" do
+      test "should pass through the html options even when using the as option" do
         result = render_inline Skelecogs::TransitionComponent.new(show: true, as: :a, href: "/", class: "text-blue-500") do |c|
           "Children"
         end
 
         expected = build_fragment(<<~FRAGMENT
-          <a href='/' class='text-blue-500'>
+          <a href='/' class='text-blue-500' data-controller="transition" data-transition-show-value="true">
             Children
           </a>
           FRAGMENT

@@ -5907,6 +5907,11 @@
     searching: { type: Boolean, default: false }
   });
 
+  // app/javascript/controllers/transition_controller.js
+  var transition_controller_default = class extends Controller {
+  };
+  __publicField(transition_controller_default, "values", ["show"]);
+
   // app/javascript/controllers/prefixed_id_controller.js
   var prefixed_id_controller_default = class extends Controller {
     connect() {
@@ -5936,6 +5941,7 @@
 
   // app/javascript/controllers/index.js
   application.register("dropdown", dropdown_controller_default);
+  application.register("transition", transition_controller_default);
   application.register("prefixed-id", prefixed_id_controller_default);
 })();
 //# sourceMappingURL=assets/application.js.map
