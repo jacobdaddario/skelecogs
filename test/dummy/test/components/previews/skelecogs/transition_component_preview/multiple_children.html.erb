@@ -1,8 +1,8 @@
-<%= render Skelecogs::TransitionComponent.new(class: "h-32 w-32 rounded-lg shadow-md bg-slate-100 border border-gray-200 cursor-pointer", show: true) do %>
-  <%= render Skelecogs::TransitionComponent::ChildComponent.new(class: "h-4 w-4") do %>
+<%= render Skelecogs::TransitionComponent.new(class: "h-32 w-32 rounded-lg shadow-md bg-slate-100 border border-gray-200 cursor-pointer", as: :article, show: true) do %>
+  <%= render Skelecogs::TransitionComponent::ChildComponent.new(class: "h-4 w-4", as: :aside) do %>
     Sidebar
   <% end %>
-  <%= render Skelecogs::TransitionComponent::ChildComponent.new(class: "h-4 w-4") do %>
+  <%= render Skelecogs::TransitionComponent::ChildComponent.new(class: "h-4 w-4", as: :section) do %>
     Content
   <% end %>
 <% end %>

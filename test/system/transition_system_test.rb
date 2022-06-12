@@ -28,6 +28,21 @@ class TransitionSystemTest < ApplicationSystemTestCase
         assert_text "Sidebar"
         assert_text "Content"
       end
+
+      test "should be possible to change the underlying DOM tag of the Transition.Child elements" do
+        with_preview(:multiple_children)
+
+        assert_selector("aside")
+        assert_selector("section")
+      end
+
+      test "should be possible to change the underlying DOM tag of the Transition component and Child components" do
+        with_preview(:multiple_children)
+
+        assert_selector("article")
+        assert_selector("aside")
+        assert_selector("section")
+      end
     end
   end
 end
