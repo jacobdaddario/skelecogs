@@ -8,5 +8,8 @@ module Skelecogs
 
     def child
     end
+
+    def multiple_children
+    end
   end
 end
