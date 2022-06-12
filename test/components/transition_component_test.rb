@@ -80,6 +80,18 @@ class TransitionComponentTest < ViewComponent::TestCase
 
         assert_equal_fragments expected, result
       end
+
+      test "should render a hidden element when the show prop is false" do
+        result = render_inline Skelecogs::TransitionComponent.new(show: false)
+
+        expected = build_fragment(<<~FRAGMENT
+          <div data-controller="transition" data-transition-show-value="false" hidden="hidden">
+          </div>
+          FRAGMENT
+        )
+
+        assert_equal_fragments expected, result
+      end
     end
   end
 end
