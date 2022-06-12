@@ -45,4 +45,10 @@ class TransitionSystemTest < ApplicationSystemTestCase
       end
     end
   end
+
+  class TransitionsTest < TransitionSystemTest
+    class ShallowTransitionsTest < TransitionSystemTest
+
+    end
+  end
 end
