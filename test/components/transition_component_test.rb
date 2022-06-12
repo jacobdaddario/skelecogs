@@ -92,6 +92,21 @@ class TransitionComponentTest < ViewComponent::TestCase
 
         assert_equal_fragments expected, result
       end
+
+      test "should be possible to change the underlying DOM tag" do
+        result = render_inline Skelecogs::TransitionComponent.new(show: true, as: :a) do |c|
+          "Children"
+        end
+
+        expected = build_fragment(<<~FRAGMENT
+          <a data-controller="transition" data-transition-show-value="true">
+            Children
+          </a>
+          FRAGMENT
+        )
+
+        assert_equal_fragments expected, result
+      end
     end
   end
 end
